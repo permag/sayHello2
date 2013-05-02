@@ -22,7 +22,7 @@
 			<div id="mainSection">
 				<h3 id="audioListHeader"><a href="#">Conversations</a></h3>
 				<div id="recordingList">
-					<input type="text" ng-model="filter.username"/>
+					<input type="text" ng-model="filter.username" placeholder="Filter name"/>
 
 					<div class="recordingDiv" ng-repeat="rec in recordings | filter:filter.username">
 						<p class="from">From: <a href="#" class="username">{{rec.username}}</a></p>
@@ -68,15 +68,17 @@
 
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
+		<!-- <script src="http://code.angularjs.org/1.0.6/angular-resource.min.js"></script> -->
 		<script src="content/js/moment.js"></script>
 		<script src="content/js/controller.js"></script>
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 		<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 
-
+<!-- 
 		<script src="/sayhello/js/jRecorder.js"></script>
 		<script src="/sayhello/js/init.js"></script>
 		<script src="/sayhello/js/recInit.js"></script>
 		<script src="/sayhello/js/recEvent.js"></script>
+ -->
 	</body>
 </html>

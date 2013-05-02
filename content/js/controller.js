@@ -12,20 +12,13 @@ sayHello.config(function($routeProvider, $locationProvider) {
 });
 
 sayHello.factory('recordingsFactory', function($http) {
-	var recordings = [
-		{"username": "killingfloor", "date": "Wed May 1 2013 23:15:00 GMT+0100 (CET)", "url": "test.wav"},
-		{"username": "uhno", "date": "2013-02-22 09:48:25", "url": "test.wav"},
-		{"username": "hasseman", "date": "2013-02-22 11:37:27", "url": "test.wav"}
-	];
-
 	var factory = {};
 	factory.getRecordings = function() {
-		return recordings;
+		return $http({
+			url: 'content/test_data.json',
+			method: 'GET'
+		});
 	};
-	factory.postRecording = function() {
-
-	};
-
 	return factory;
 });
 
@@ -41,7 +34,9 @@ controllers.AppCtrl = function($scope, $location, $http, recordingsFactory) {
 	$scope.recordings = [];
 	init();
 	function init() {
-		$scope.recordings = recordingsFactory.getRecordings();
+		recordingsFactory.getRecordings().success(function(data){
+			$scope.recordings = data;
+		});
 	}
 };
 
