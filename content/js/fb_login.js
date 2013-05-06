@@ -63,13 +63,13 @@ function testAPI() {
     FB.api('/me', function(response) {
         console.log('Good to see you, ' + response.name + '. id: ' + response.id);
     });
-    window.location = 'index.php';
+    window.location = './';
 }
 
 function logout() {
   FB.logout(function(response) {
     // user is now logged out
     $('#logoutLink').html('Logging out...').attr('disabled', 'disabled');
-    window.location = 'index.php';
+    window.location = './login.php';
   });
 }

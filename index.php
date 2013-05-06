@@ -1,3 +1,10 @@
+<?php
+// test
+// $timeTest = date("D M j G:i:s (T) Y", '1301982430'); // convert unix timestamp
+// $timeTest = date('D M j G:i:s (T) Y', strtotime('2012-10-30 17:31:29')); // convert from mysql datetime
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>

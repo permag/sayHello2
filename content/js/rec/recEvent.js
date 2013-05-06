@@ -4,7 +4,7 @@ $(function(){
 	stopped = false;
 
 	// background beep
-	 $('body').append('<div id="recBeepDiv"><audio id="recBeep" src="./content/js/rec/audio/recBeep.wav" controls hidden></audio><audio id="recBeepSend" src="./content/js/rec/js/audio/recBeepSend.wav" controls hidden></audio></div>');
+	 $('body').append('<div id="recBeepDiv"><audio id="recBeep" src="./content/js/rec/audio/recBeep.wav" controls hidden></audio><audio id="recBeepSend" src="./content/js/rec/audio/recBeepSend.wav" controls hidden></audio></div>');
 
 	
 	$('#record').click(function(){
