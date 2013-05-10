@@ -1,5 +1,7 @@
 <?php
 error_reporting(E_ALL);
+session_start();
+$_SESSION['active_user'] = 1;
 // test
 // $timeTest = date("D M j G:i:s (T) Y", '1301982430'); // convert unix timestamp
 // $timeTest = date('D M j G:i:s (T) Y', strtotime('2012-10-30 17:31:29')); // convert from mysql datetime

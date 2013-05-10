@@ -75,7 +75,7 @@ class Database {
 	 */
 	public function select($sqlQuery, Array $param=null) {
 		try {
-			$stmt = $this->_pdo->prepare($sqlQuery);
+			$stmt = $this->pdo->prepare($sqlQuery);
 			if (!$stmt->execute($param)) {
 				die('Error. Database error.');
 			}
@@ -86,27 +86,6 @@ class Database {
 		}
 	}
 
-	/**
-	 * Select with parameters
-	 * @param string, SQL-statement
-	 * @param associative array, SQL-parameters
-	 * @return associative array, result
-	 */
-	public function selectParam($sqlQuery, Array $param) {
-		try {
-			$ret = 0;
-			$stmt = $this->pdo->prepare($sqlQuery);
-			$stmt->execute($param);
-			$ret = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-			$stmt = null;
-
-			return $ret;
-
-		} catch (\PDOException $e) {
-			echo $e->getMessage();
-			return false;
-		}
-	}
 
 	/**
 	 * Insert, update or delete queries.

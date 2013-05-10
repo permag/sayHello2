@@ -12,10 +12,10 @@ if (isset($username)) {
 	$db = new Database($dbConfig);
 	$db->connect();
 
-	// get userId
+	// get userId from username
 	$theUserId = null;
-	$ret = $db->selectParam("SELECT user_id FROM user WHERE username = :username", 
-						 array(':username' => $username));
+	$ret = $db->select("SELECT user_id FROM user WHERE username = :username", 
+							 array(':username' => $username));
 	$db = null;
 
 	if ($ret != null || $ret != '') {
@@ -30,8 +30,3 @@ if (isset($username)) {
 		}
 	}
 }
-
-
-
-
-
