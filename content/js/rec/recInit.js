@@ -1,6 +1,6 @@
 $(function(){
 	$.jRecorder({ 
-		host : '/RecordCall.php', /////
+		host : './recordcall.php', /////
 
 		callback_started_recording:     function(){callback_started(); },
 		callback_stopped_recording:     function(){callback_stopped(); },

@@ -55,13 +55,13 @@ $(function(){
 
 	// ajax autocomplete to get usernames
 	$("#shareToUsername").autocomplete({
-	    source: function( request, response ) {
+	    source: function(request, response) {
 	        $.ajax({
-	            url: "/ajax/GetUsernameAutocomplete.php",
+	            url: "./ajax/GetUsernameAutocomplete.php",
 	            data: {term: request.term},
 	            dataType: "json",
 	            success: function(data) {
-	                response( $.map(data, function(member) {
+	                response($.map(data, function(member) {
 	                    return {
 	                        value: member.username
 	                    }

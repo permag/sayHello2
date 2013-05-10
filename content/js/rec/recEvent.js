@@ -36,7 +36,7 @@ $(function(){
 			// call ajax script
 			$.ajax({
 				type: 'get',
-				url: '/ajax/ShareGetMemberIdFromUsername.php',
+				url: './ajax/getUserIdFromUsername.php',
 				data: { username: shareToUsername },
 				cache: false,
 				dataType: 'json',
