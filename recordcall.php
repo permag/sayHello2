@@ -26,7 +26,7 @@ class RecordCall {
 	}
 
 	public function saveRecording($db) {
-		$ownerUserId = $_SESSION['active_user']; // test
+		$ownerUserId = $_SESSION['active_user_id']; // test
 		$toUserId = $_SESSION['recording_to_userId'];
 		unset($_SESSION['recording_to_userId']);
 		
@@ -39,7 +39,7 @@ class RecordCall {
 	}
 }
 
-if (isset($_SESSION['active_user'])) {
+if (isset($_SESSION['active_user_id']) && isset($_SESSION['recording_to_userId'])) {
 	$recordCall = new RecordCall();
 	$recordCall->init();
 }

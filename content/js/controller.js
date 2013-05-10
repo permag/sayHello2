@@ -11,11 +11,24 @@ sayHello.config(function($routeProvider, $locationProvider) {
 
 });
 
+// test
 sayHello.factory('recordingsFactory', function($http) {
 	var factory = {};
 	factory.getRecordings = function() {
 		return $http({
 			url: 'content/test_data.json',
+			method: 'GET'
+		});
+	};
+	return factory;
+});
+
+// recordingListFactory
+sayHello.factory('recordingListFactory', function($http) {
+	var factory = {};
+	factory.getRecordingList = function() {
+		return $http({
+			url: 'ajax/getRecordingList.php',
 			method: 'GET'
 		});
 	};
@@ -30,12 +43,12 @@ sayHello.filter('fromNow', function() {
 
 var controllers = {};
 
-controllers.AppCtrl = function($scope, $location, $http, recordingsFactory) {
-	$scope.recordings = [];
+controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
+	$scope.recordingList = [];
 	init();
 	function init() {
-		recordingsFactory.getRecordings().success(function(data){
-			$scope.recordings = data;
+		recordingListFactory.getRecordingList().success(function(data){
+			$scope.recordingList = data;
 		});
 	}
 };

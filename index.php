@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 session_start();
-$_SESSION['active_user'] = 1;
+$_SESSION['active_user_id'] = 1;
 // test
 // $timeTest = date("D M j G:i:s (T) Y", '1301982430'); // convert unix timestamp
 // $timeTest = date('D M j G:i:s (T) Y', strtotime('2012-10-30 17:31:29')); // convert from mysql datetime
@@ -34,12 +34,12 @@ $_SESSION['active_user'] = 1;
 				<div id="recordingList">
 					<input type="text" ng-model="filter.username" placeholder="Filter name"/>
 
-					<div class="recordingDiv" ng-repeat="rec in recordings | filter:filter.username">
+					<div class="recordingDiv" ng-repeat="rec in recordingList | filter:filter.username">
 						<p class="from">From: <a href="#" class="username">{{rec.username}}</a></p>
 						<span class="remove">
 							<span class="deleteRecInbox">X</span>
 						</span>
-						<p class="recordingTime">{{rec.date|fromNow}}</p>
+						<!--<p class="recordingTime">{{rec.date|fromNow}}</p>-->
 						<div><audio src="{{rec.url}}" controls></audio></div>
 					</div>
 
