@@ -30,7 +30,7 @@
 		public function setRecordingFilename($ownerUserId) {
 			$filename = '';
 			date_default_timezone_set(self::$m_timeZone);
-			$filename = $ownerUserId . '_' . date(self::$m_timeFormatFilename);
+			$filename = $ownerUserId . '_' . rand(1000000, 9999999) . date(self::$m_timeFormatFilename);
 			
 			return $filename;
 		}

@@ -15,7 +15,7 @@ if (isset($username)) {
 	// get userId from username
 	$theUserId = null;
 	$ret = $db->select("SELECT user_id FROM user WHERE username = :username", 
-							 array(':username' => $username));
+						array(':username' => $username));
 	$db = null;
 
 	if ($ret != null || $ret != '') {

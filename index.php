@@ -35,7 +35,7 @@ $_SESSION['active_user_id'] = 1;
 					<input type="text" ng-model="filter.username" placeholder="Filter name"/>
 
 					<div class="recordingDiv" ng-repeat="rec in recordingList | filter:filter.username">
-						<p class="from">From: <a href="#" class="username">{{rec.username}}</a></p>
+						<p class="from">From: <a href="#" class="username">{{rec.username}}</a> {{rec.user_id}}</p>
 						<span class="remove">
 							<span class="deleteRecInbox">X</span>
 						</span>

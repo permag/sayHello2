@@ -7,14 +7,17 @@ $dbConfig = new DBConfig();
 $db = new Database($dbConfig);
 $db->connect();
 
+$activeUserId = $_SESSION['active_user_id'];
 $recordingList = array();
 
 $stmt = $db->select("SELECT DISTINCT user.user_id, user.username 
 					 FROM user
 					 INNER JOIN recording
-					 ON user.user_id = recording.owner_user_id 
-					 WHERE recording.to_user_id = :to_user_id",
-					 array(':to_user_id' => $_SESSION['active_user_id']));
+					 ON user.user_id = recording.owner_user_id OR user.user_id = recording.to_user_id
+					 WHERE recording.owner_user_id = :activeUserId
+					 OR recording.to_user_id = :activeUserId
+					 ORDER BY recording.date_time DESC",
+					 array(':activeUserId' => $activeUserId));
 
 $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
