@@ -2,9 +2,34 @@
 
 require('src/facebook.php');
 require_once('fb.php');
+require_once('./database/DBConfig.php');
+require_once('./database/Database.php');
+require_once('./models/UserModel.php');
 
 if ($user) {
-	$_SESSION['user_id'] = $user_profile['id'];
+	//$_SESSION['user_id'] = $user_profile['id'];
+	// $user: facebook user is authorized.
+
+	//
+	$dbConfig = new DBConfig();
+	$db = new Database($dbConfig);
+	$db->connect();
+	$userModel = new UserModel($db);
+
+	$thirdPartyType = 1;
+	$thirdPartyId = $user;
+	// check if facebook user already is registered here.
+	$userId = $userModel->getUserIdThirdParty($thirdPartyType, $thirdPartyId);
+	if ($userId) {
+		$userModel->setActiveUserIdSession($userId);
+		header('location: ./');
+	} else {
+		// register user: let user choose username
+		$_SESSION['third_party_type'] = $thirdPartyType;
+		$_SESSION['third_party_id'] = $thirdPartyId;
+		header('location: ./registerusername.php');
+		
+	}
 
 }
 
@@ -12,9 +37,6 @@ if ($user) {
 <!doctype html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
 	<head>
-		<!-- <meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' /> -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 		<title>sayHello</title>

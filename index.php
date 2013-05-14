@@ -1,7 +1,19 @@
 <?php
 error_reporting(E_ALL);
 session_start();
-$_SESSION['active_user_id'] = 1;
+require_once('./database/DBConfig.php');
+require_once('./database/Database.php');
+require_once('./models/UserModel.php');
+
+$dbConfig = new DBConfig();
+$db = new Database($dbConfig);
+$db->connect();
+$userModel = new UserModel($db);
+$userId = $userModel->getActiveUserId();
+$user = $userModel->getUser($userId);
+$db = null;
+
+echo $user->username;
 // test
 // $timeTest = date("D M j G:i:s (T) Y", '1301982430'); // convert unix timestamp
 // $timeTest = date('D M j G:i:s (T) Y', strtotime('2012-10-30 17:31:29')); // convert from mysql datetime

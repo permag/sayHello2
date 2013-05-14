@@ -75,6 +75,41 @@ class UserModel {
 		}
 	}
 
+	public function registerUserThirdParty($thirdPartyType, $thirdPartyId, $username) {
+		// check username again just in case
+		if ($this->isUsernameAvailable($username)) {
+			// ok, register.
+			$stmt = $this->_db->insert("INSERT INTO user (third_party_type, third_party_id, username) 
+										VALUES (:third_party_type, :third_party_id, :username)", 
+										array(':third_party_type' => $thirdPartyType,
+											  ':third_party_id' => $thirdPartyId,
+											  ':username' => $username));
+			if ($stmt > 0) {
+				return true;
+			} else {
+				return null;
+			}
+
+		} else {
+			return false;
+		}
+	}
+
+	public function isUsernameAvailable($username) {
+		$stmt = $this->_db->select("SELECT COUNT(*) FROM user WHERE username = :username",
+								    array(':username' => $username));
+		if ($stmt->fetchColumn() == 0) {
+			// username available
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getActiveUserId() {
+		return $_SESSION['active_user_id'];
+	}
+
 	public function setActiveUserIdSession($userId) {
 		if ($userId != null || $userId != '') {
 			$_SESSION['active_user_id'] = $userId;
