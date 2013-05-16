@@ -4,8 +4,8 @@ sayHello.config(function($routeProvider, $locationProvider) {
 // $locationProvider.html5Mode(true);
 
 $routeProvider
-	.when('/', {templateUrl: './content/js/partials/_recordingList.html'})
-	.when('/show/:userId', {templateUrl: './content/js/partials/_recordings.html', controller: 'ShowCtrl'})
+	.when('/', {templateUrl: './views/partials/_recordingList.html'})
+	.when('/show/:userId', {templateUrl: './views/partials/_recordings.html', controller: 'ShowCtrl'})
 	.otherwise({redirectTo: '/'});
 
 });
@@ -77,7 +77,7 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 	// "drop down" to show recordings using template
 	$scope.dropDownRecs = function(userId) {
 		init(userId);
-		$scope.templates = [{name: '_recordings.html', url: './content/js/partials/_recordings.html'}];
+		$scope.templates = [{name: '_recordings.html', url: './views/partials/_recordings.html'}];
 		$scope.template = $scope.templates[0];
 	};
 };
