@@ -3,24 +3,11 @@ var sayHello = angular.module('sayHello', []);
 sayHello.config(function($routeProvider, $locationProvider) {
 // $locationProvider.html5Mode(true);
 
-// $routeProvider.
-// 	when('/', {templateUrl: './partials/_list.html'}).
-// 	when('/new', {templateUrl: './partials/_edit.html', controller: 'NewCtrl'}).
-// 	when('/edit/:id', {templateUrl: './partials/_edit.html', controller: 'EditCtrl'}).
-// 	otherwise({redirectTo: '/'});
+$routeProvider
+	.when('/', {templateUrl: './content/js/partials/_recordingList.html'})
+	.when('/show/:userId', {templateUrl: './content/js/partials/_recordings.html', controller: 'ShowCtrl'})
+	.otherwise({redirectTo: '/'});
 
-});
-
-// test
-sayHello.factory('recordingsFactory', function($http) {
-	var factory = {};
-	factory.getRecordings = function() {
-		return $http({
-			url: 'content/test_data.json',
-			method: 'GET'
-		});
-	};
-	return factory;
 });
 
 // recordingListFactory
@@ -59,7 +46,7 @@ var controllers = {};
 
 controllers.AppCtrl = function($scope, $location, $http, recordingListFactory, recordingsFactory) {
 	$scope.recordingList = [];
-	$scope.recordings = [];
+	//$scope.recordings = [];
 	init();
 
 	function init() {
@@ -69,12 +56,25 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory, r
 	}
 
 
+
+};
+
+controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
+	recordingsFactory.getRecordings($routeParams.userId).success(function(data) {
+		$scope.recordings = data;
+	});
+
 	$scope.showRecs = function(userId) {
+		$scope.recordings = [];
+		$scope.templates = [{name: '_recordings.html', url: './content/js/partials/_recordings.html'}];
+		$scope.template = $scope.templates[0];
+
+
 		recordingsFactory.getRecordings(userId).success(function(data) {
 			$scope.recordings = data;
 		});
-	};
 
+	};
 };
 
 sayHello.controller(controllers);

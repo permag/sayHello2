@@ -36,7 +36,7 @@ $stmt->setFetchMode(PDO::FETCH_ASSOC);
 while ($r = $stmt->fetch()) {
 	$tmp = array();
 	$tmp['user_id'] = $r['user_id'];
-	$tmp['username'] = $r['username'];
+	$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
 	$tmp['recording_id'] = $r['recording_id'];
 	$tmp['filename'] = $r['filename'];
 	$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
