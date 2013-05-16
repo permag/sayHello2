@@ -35,6 +35,20 @@ sayHello.factory('recordingListFactory', function($http) {
 	return factory;
 });
 
+// recordings factory
+sayHello.factory('recordingsFactory', function($http) {
+	var factory = {};
+	factory.getRecordings = function(userId) {
+		return $http({
+			url: 'ajax/getRecordings.php',
+			method: 'GET',
+			params: {'user_id': userId}
+		});
+	};
+	return factory;
+});
+
+// filter
 sayHello.filter('fromNow', function() {
 	return function(dateString) {
 		return moment(new Date(dateString)).fromNow();
@@ -43,14 +57,24 @@ sayHello.filter('fromNow', function() {
 
 var controllers = {};
 
-controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
+controllers.AppCtrl = function($scope, $location, $http, recordingListFactory, recordingsFactory) {
 	$scope.recordingList = [];
+	$scope.recordings = [];
 	init();
+
 	function init() {
-		recordingListFactory.getRecordingList().success(function(data){
+		recordingListFactory.getRecordingList().success(function(data) {
 			$scope.recordingList = data;
 		});
 	}
+
+
+	$scope.showRecs = function(userId) {
+		recordingsFactory.getRecordings(userId).success(function(data) {
+			$scope.recordings = data;
+		});
+	};
+
 };
 
 sayHello.controller(controllers);

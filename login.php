@@ -28,9 +28,7 @@ if ($user) {
 		$_SESSION['third_party_type'] = $thirdPartyType;
 		$_SESSION['third_party_id'] = $thirdPartyId;
 		header('location: ./registerusername.php');
-		
 	}
-
 }
 
 ?>

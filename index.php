@@ -47,12 +47,24 @@ echo $user->username;
 					<input type="text" ng-model="filter.username" placeholder="Filter name"/>
 
 					<div class="recordingDiv" ng-repeat="rec in recordingList | filter:filter.username">
-						<p class="from">From: <a href="#" class="username">{{rec.username}}</a> {{rec.user_id}}</p>
+						<p class="from"><a href="#" class="username">{{rec.username}}</a> {{rec.user_id}}</p>
+						<span ng-click="showRecs(rec.user_id)">show</span>
 						<span class="remove">
 							<span class="deleteRecInbox">X</span>
 						</span>
 						<!--<p class="recordingTime">{{rec.date|fromNow}}</p>-->
 						<div><audio src="{{rec.url}}" controls></audio></div>
+
+						<!-- recordings -->
+						<div class="recordings" id="recordings_{{rec.user_id}}">
+							<ul>
+								<li ng-repeat="recs in recordings">
+									<p>From {{recs.username}} {{recs.date_time|fromNow}}</p>
+									<audio src="./recs/{{recs.filename}}" controls></audio>
+								</li>
+							</ul>
+						</div><!-- recordings end -->
+
 					</div>
 
 					<div id="showMoreAudio">show more</div>

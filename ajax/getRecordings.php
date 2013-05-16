@@ -34,7 +34,16 @@ $stmt = $db->select("SELECT user.user_id, user.username,
 $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 while ($r = $stmt->fetch()) {
-	array_push($recordings, $r);
+	$tmp = array();
+	$tmp['user_id'] = $r['user_id'];
+	$tmp['username'] = $r['username'];
+	$tmp['recording_id'] = $r['recording_id'];
+	$tmp['filename'] = $r['filename'];
+	$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
+	$tmp['to_user_id'] = $r['to_user_id'];
+	$tmp['owner_user_id'] = $r['owner_user_id'];
+
+	array_push($recordings, $tmp);
 }
 
 $db = null;
