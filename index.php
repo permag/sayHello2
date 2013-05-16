@@ -45,7 +45,7 @@ echo $user->username;
 				<h3 id="audioListHeader"><a href="#">Conversations</a></h3>
 
 				<div id="recordingList">
-					
+
 					<div ng-view></div>
 
 				</div>

@@ -25,11 +25,11 @@ sayHello.factory('recordingListFactory', function($http) {
 // recordings factory
 sayHello.factory('recordingsFactory', function($http) {
 	var factory = {};
-	factory.getRecordings = function(userId) {
+	factory.getRecordings = function(userId, start, take) {
 		return $http({
 			url: './ajax/getRecordings.php',
 			method: 'GET',
-			params: {'user_id': userId}
+			params: {'user_id': userId, 'start': start, 'take': take}
 		});
 	};
 	return factory;
@@ -62,7 +62,14 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 	$scope.recordings = [];
 
 	function init(userId) {
-		recordingsFactory.getRecordings(userId).success(function(data) {
+		var recDiv = $('#rec_' + userId);
+		recDiv.append('<div id="loader"><img src="./content/img/ajax-loader-1.gif" /></div>');
+		// offset, limit DB
+		var start = 0;
+		var take = 2;
+
+		recordingsFactory.getRecordings(userId, start, take).success(function(data) {
+			$('#loader').remove();
 			$scope.recordings = data;
 		});
 	}

@@ -12,7 +12,8 @@ $(function(){
 		if ($('.errorMessages').html() != '') {
 			$('.errorMessages').slideDown('slow');
 		}
-	},9);	setTimeout(function(){
+	},9);
+	setTimeout(function(){
 		$('.errorMessages').slideUp('slow');
 	},3999);
 	$('.errorMessages').click(function(e){

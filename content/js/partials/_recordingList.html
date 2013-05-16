@@ -1,13 +1,12 @@
 <input type="text" ng-model="filter.username" placeholder="Filter..."/>
 
-<div ng-controller="ShowCtrl" class="recordingDiv" ng-repeat="rec in recordingList | filter:filter.username">
+<div ng-controller="ShowCtrl" id="rec_{{rec.user_id}}" class="recordingDiv" ng-repeat="rec in recordingList | filter:filter.username">
 	<p class="from"><a href="#" class="username">{{rec.username}}</a> {{rec.user_id}}</p>
 	<span ng-click="dropDownRecs(rec.user_id)">show</span>
 	<a href="./#/show/{{rec.user_id}}">VISA</a>
 	<span class="remove">
 		<span class="deleteRecInbox">X</span>
 	</span>
-
 
 
 

@@ -9,6 +9,8 @@ $db->connect();
 
 $activeUserId = $_SESSION['active_user_id'];
 $userIdToShowRecordingsFor = $_GET['user_id'];
+$start = $_GET['start'];
+$take = $_GET['take'];
 $recordings = array();
 
 // Select recordings dialog between active user and user with "clicked" user id
@@ -28,7 +30,8 @@ $stmt = $db->select("SELECT user.user_id, user.username,
 					 AND recording.owner_user_id = :activeUserId
 					 OR (recording.to_user_id = :activeUserId
 					 AND recording.owner_user_id = :userIdToShowRecordingsFor)
-					 ORDER BY recording.date_time DESC",
+					 ORDER BY recording.date_time DESC 
+					 LIMIT ".$start.", ".$take."",
 					 array(':userIdToShowRecordingsFor' => $userIdToShowRecordingsFor,
 					 	   ':activeUserId' => $activeUserId));
 
