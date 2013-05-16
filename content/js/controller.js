@@ -15,7 +15,7 @@ sayHello.factory('recordingListFactory', function($http) {
 	var factory = {};
 	factory.getRecordingList = function() {
 		return $http({
-			url: 'ajax/getRecordingList.php',
+			url: './ajax/getRecordingList.php',
 			method: 'GET'
 		});
 	};
@@ -27,7 +27,7 @@ sayHello.factory('recordingsFactory', function($http) {
 	var factory = {};
 	factory.getRecordings = function(userId) {
 		return $http({
-			url: 'ajax/getRecordings.php',
+			url: './ajax/getRecordings.php',
 			method: 'GET',
 			params: {'user_id': userId}
 		});
@@ -46,7 +46,6 @@ var controllers = {};
 
 controllers.AppCtrl = function($scope, $location, $http, recordingListFactory, recordingsFactory) {
 	$scope.recordingList = [];
-	//$scope.recordings = [];
 	init();
 
 	function init() {
@@ -54,26 +53,25 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory, r
 			$scope.recordingList = data;
 		});
 	}
-
-
-
 };
 
 controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
-	recordingsFactory.getRecordings($routeParams.userId).success(function(data) {
-		$scope.recordings = data;
-	});
+	if ($routeParams.userId != null) {
+		init($routeParams.userId);
+	}
+	$scope.recordings = [];
 
-	$scope.showRecs = function(userId) {
-		$scope.recordings = [];
-		$scope.templates = [{name: '_recordings.html', url: './content/js/partials/_recordings.html'}];
-		$scope.template = $scope.templates[0];
-
-
+	function init(userId) {
 		recordingsFactory.getRecordings(userId).success(function(data) {
 			$scope.recordings = data;
 		});
+	}
 
+	// "drop down" to show recordings using template
+	$scope.dropDownRecs = function(userId) {
+		init(userId);
+		$scope.templates = [{name: '_recordings.html', url: './content/js/partials/_recordings.html'}];
+		$scope.template = $scope.templates[0];
 	};
 };
 

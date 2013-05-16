@@ -3,7 +3,7 @@
 	<ul>
 		<li ng-repeat="recs in recordings">
 			<p>{{recs.username}}, {{recs.date_time|fromNow}}</p>
-			<audio src="./recs/{{recs.filename}}" controls></audio>
+			<audio ng-src="./recs/{{recs.filename}}" controls></audio>
 		</li>
 	</ul>
 </div><!-- recordings end -->

@@ -19,7 +19,8 @@ $recordings = array();
  *  samt det motsatta.
  */
 $stmt = $db->select("SELECT user.user_id, user.username, 
-							recording.recording_id, recording.filename, recording.date_time, recording.to_user_id, recording.owner_user_id
+							recording.recording_id, recording.filename, recording.date_time, 
+							recording.to_user_id, recording.owner_user_id
 					 FROM user
 					 INNER JOIN recording
 					 ON user.user_id = recording.owner_user_id 
