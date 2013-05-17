@@ -25,7 +25,14 @@ $db = null;
 	</head>
 	<body ng-app="sayHello" ng-controller="AppCtrl">
 
-		<div id="topBar"></div>
+		<div id="fb-root"></div>
+
+		<div id="topBar">
+			<div id="topBarWrap">
+				<div id="topBarLogo">sayHello.</div>
+				<div id="topBarRefresh"><a href="#">refresh</a></div>
+			</div>
+		</div>
 		<div id="container">
 			<div id="leftSection"><h1 id="logo"><a href="./">sayHELLO.</a></h1><br />
 				<div id="sideMenu">

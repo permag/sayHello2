@@ -1,6 +1,6 @@
 <?php 
-require('src/facebook.php');
-require_once('fb.php');
+require_once('./thirdparty//fb/src/facebook.php');
+require_once('./thirdparty/fb/fb.php');
 require_once('./database/DBConfig.php');
 require_once('./database/Database.php');
 require_once('./models/UserModel.php');

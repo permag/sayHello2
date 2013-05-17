@@ -35,21 +35,55 @@ object, embed {
 }
 
 #topBar {
+	position: fixed;
+	z-index: 99999;
 	width: 100%;
 	height: 30px;
-	background: rgba(0,0,0,0.7);
+	background: #302f2e;
+	overflow: hidden;
 
 	-webkit-box-shadow: #000 0 0 3px;
 	-moz-box-shadow: #000 0 0 3px;
 	box-shadow: #000 0 0 3px;
 }
+#topBarWrap {
+	margin: 0 auto;
+	width: 790px;
+}
+#topBarLogo {
+	font-size: 21px;
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+	text-shadow: 3px 3px 18px #fbfff8;
+	padding: 4px 0 0 0;
+	display: block;
+	float: left;
 
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+#topBarRefresh {
+	width: 40px;
+	margin: 12px 0 0 250px;
+	display: block;
+	float: left;
+	color: white;
+	font-size: 11px;
+}
+#topBarRefresh a {
+	color: white;
+}
 #container {
 	position: relative;
 	z-index: 2;
+	top: 30px;
 	width: 790px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0 auto;
 	padding: 12px;
 	display: block;
 	overflow: auto;

@@ -35,16 +35,24 @@ sayHello.factory('recordingsFactory', function($http) {
 	return factory;
 });
 
-// filter
+// filter: time from now on dates
 sayHello.filter('fromNow', function() {
 	return function(dateString) {
 		return moment(new Date(dateString)).fromNow();
 	}
 });
 
+// filter: individual colors for users recordingList "folder"
+sayHello.filter('userColor', function() {
+	var colors = ['#ffd17e', '#e9c073', '#d9b36b', '#cba764', '#bf9d5e', '#b6965a', '#aa8c54', '#a0844f', '#a0844f'];
+	return function(username) {
+		return colors[username.length];
+	}
+});
+
 var controllers = {};
 
-controllers.AppCtrl = function($scope, $location, $http, recordingListFactory, recordingsFactory) {
+controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 	$scope.recordingList = [];
 	init();
 
