@@ -19,7 +19,7 @@ class RecordCall {
 		// DB-connect
 		$db->connect();
 
-		$rec = $this->saveRecording($db);
+		$this->saveRecording($db);
 
 		// kill DB-conn
 		$db = null;

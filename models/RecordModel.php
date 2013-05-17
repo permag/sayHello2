@@ -68,10 +68,10 @@
 			$sql = "INSERT INTO ".self::$m_tableRecording." (filename, owner_user_id, to_user_id)
 					VALUES (:filename, :owner_user_id, :to_user_id)";
 			$param = array(':filename' => $filename, 
-							':owner_user_id' => $ownerUserId, 
-							':to_user_id' => $toUserId);
+						   ':owner_user_id' => $ownerUserId, 
+						   ':to_user_id' => $toUserId);
 
-			if ($this->m_db->insertUpdateDelete($sql, $param) == 1) {
+			if ($this->m_db->insert($sql, $param) == 1) {
 				return $this->m_db->lastInsertId();
 			} else {
 				return false;

@@ -1,34 +1,23 @@
 <?php 
-
 require('src/facebook.php');
 require_once('fb.php');
 require_once('./database/DBConfig.php');
 require_once('./database/Database.php');
 require_once('./models/UserModel.php');
+require_once('./controllers/LoginController.php');
 
+
+// FACEBOOK LOGIN
 if ($user) {
-	//$_SESSION['user_id'] = $user_profile['id'];
-	// $user: facebook user is authorized.
-
-	//
+	// $user: facebook user is authorized ($user: fb userId).
 	$dbConfig = new DBConfig();
 	$db = new Database($dbConfig);
 	$db->connect();
-	$userModel = new UserModel($db);
+	$loginController = new LoginController($db);
+	$loginController->loginControl($user);
+	$db = null;
 
-	$thirdPartyType = 1;
-	$thirdPartyId = $user;
-	// check if facebook user already is registered here.
-	$userId = $userModel->getUserIdThirdParty($thirdPartyType, $thirdPartyId);
-	if ($userId) {
-		$userModel->setActiveUserIdSession($userId);
-		header('location: ./');
-	} else {
-		// register user: let user choose username
-		$_SESSION['third_party_type'] = $thirdPartyType;
-		$_SESSION['third_party_id'] = $thirdPartyId;
-		header('location: ./registerusername.php');
-	}
+	$fbLoginView = $loginController->fbLoginView($user, $user_profile);
 }
 
 ?>
@@ -47,11 +36,10 @@ if ($user) {
 
 		<div class="container">
 
-			<?php 
+			<?php
+			// FACEBOOK
 			if ($user):
-					echo '<img src="https://graph.facebook.com/'.$user.'/picture?type=large" class="profilePic">
-								<span class="profileName">'.$user_profile['first_name'] . ' ' . $user_profile['last_name'].'</span>
-								<button id="logoutLink" class="btn btn-mini">Logout</button>';
+					echo $fbLoginView;
 			endif ?>
 
 			<?php if (!$user): ?>
@@ -65,7 +53,5 @@ if ($user) {
 		<script src="./content/js/fb_login.js"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-		<?php if ($user): ?>
-		<?php endif ?>
 	</body>
 </html>

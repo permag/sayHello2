@@ -16,6 +16,7 @@ class UserModel {
 										FROM user 
 										WHERE username = :username AND password = :password",
 										array(':username' => $username, ':password' => $password));
+
 			while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
 				$userId = $r['user_id'];
 			}
@@ -33,10 +34,12 @@ class UserModel {
 	// get user data for user from user_id
 	public function getUser($userId) {
 		$user = new stdClass();
-		$stmt = $this->_db->select("SELECT user_id, fname, lname, email, username, third_party_id, third_party_type
+		$stmt = $this->_db->select("SELECT user_id, fname, lname, email, username, 
+										   third_party_id, third_party_type
 									FROM user
 									WHERE user_id = :user_id",
 									array(':user_id' => $userId));
+
 		while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			$user->userId = $r['user_id'];
 			$user->fname = $r['fname'];
@@ -64,6 +67,7 @@ class UserModel {
 										AND third_party_id = :third_party_id",
 										array(':third_party_type' => $thirdPartyType,
 											  ':third_party_id' => $thirdPartyId));
+
 			while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
 				$userId = $r['user_id'];
 			}
@@ -84,6 +88,7 @@ class UserModel {
 										array(':third_party_type' => $thirdPartyType,
 											  ':third_party_id' => $thirdPartyId,
 											  ':username' => $username));
+
 			if ($stmt > 0) {
 				return true;
 			} else {
@@ -98,6 +103,7 @@ class UserModel {
 	public function isUsernameAvailable($username) {
 		$stmt = $this->_db->select("SELECT COUNT(*) FROM user WHERE username = :username",
 								    array(':username' => $username));
+		
 		if ($stmt->fetchColumn() == 0) {
 			// username available
 			return true;
@@ -131,7 +137,7 @@ class UserModel {
 
 		// get username suggestions
 		$stmt = $this->_db->select("SELECT username FROM user WHERE username LIKE :username LIMIT 27", 
-							 array(':username' => '%'.$searchTerm.'%'));
+									array(':username' => '%'.$searchTerm.'%'));
 		
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);
 

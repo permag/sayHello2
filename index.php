@@ -3,20 +3,14 @@ error_reporting(E_ALL);
 session_start();
 require_once('./database/DBConfig.php');
 require_once('./database/Database.php');
-require_once('./models/UserModel.php');
+require_once('./controllers/IndexController.php');
 
 $dbConfig = new DBConfig();
 $db = new Database($dbConfig);
 $db->connect();
-$userModel = new UserModel($db);
-$userId = $userModel->getActiveUserId();
-$user = $userModel->getUser($userId);
+$indexController = new IndexController($db);
+$user = $indexController->userControl();
 $db = null;
-
-echo $user->username;
-// test
-// $timeTest = date("D M j G:i:s (T) Y", '1301982430'); // convert unix timestamp
-// $timeTest = date('D M j G:i:s (T) Y', strtotime('2012-10-30 17:31:29')); // convert from mysql datetime
 
 ?>
 
@@ -38,6 +32,8 @@ echo $user->username;
 				<ul>
 					<li><a href="#">Inbox</a></li>
 				</ul>
+				<p><?php echo $user->username; ?></p>
+				<button id="logoutLink" class="btn btn-mini">Logout</button>
 				</div>
 			</div>
 
@@ -89,7 +85,7 @@ echo $user->username;
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 		<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 
-
+		<script src="./content/js/fb_login.js"></script>
 		<script src="./content/js/rec/jRecorder.js"></script>
 		<script src="./content/js/rec/init.js"></script>
 		<script src="./content/js/rec/recInit.js"></script>
