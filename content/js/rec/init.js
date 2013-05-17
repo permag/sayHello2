@@ -58,7 +58,7 @@ $(function(){
 	$("#shareToUsername").autocomplete({
 	    source: function(request, response) {
 	        $.ajax({
-	            url: "./ajax/getUsernameAutocomplete.php",
+	            url: "./ajax/getUsernamesFromSearch.php",
 	            data: {term: request.term},
 	            dataType: "json",
 	            success: function(data) {

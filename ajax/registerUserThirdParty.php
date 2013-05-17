@@ -1,16 +1,15 @@
 <?php
 session_start();
-
 require_once('../database/Database.php');
 require_once('../database/DBConfig.php');
 require_once('../models/UserModel.php');
 
-//
+// params
 $thirdPartyType = $_SESSION['third_party_type'];
 $thirdPartyId = $_SESSION['third_party_id'];
 $username = $_POST['username'];
 
-if (isset($username)) {
+if ($username) {
 	$dbConfig = new DBConfig();
 	$db = new Database($dbConfig);
 	$db->connect();

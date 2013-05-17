@@ -66,7 +66,7 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 		recDiv.append('<div id="loader"><img src="./content/img/ajax-loader-1.gif" /></div>');
 		// offset, limit DB
 		var start = 0;
-		var take = 2;
+		var take = 19;
 
 		recordingsFactory.getRecordings(userId, start, take).success(function(data) {
 			$('#loader').remove();

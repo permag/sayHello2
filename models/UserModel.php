@@ -106,6 +106,41 @@ class UserModel {
 		}
 	}
 
+	public function getUserIdFromUserName($username) {
+		$theUserId = null;
+		$ret = $this->_db->select("SELECT user_id FROM user WHERE username = :username", 
+								   array(':username' => $username));
+		$db = null;
+
+		if ($ret != null || $ret != '') {
+			foreach ($ret as $row) {
+				$theUserId = $row['user_id'];
+			}
+		
+			if ($theUserId != null || $theUserId != '') {
+				return $theUserId;
+			} else {
+				return null;
+			}
+		}
+	}
+
+	public function getUsernamesFromSearch($searchTerm) {
+		// array for JSON result
+		$usernames = array();
+
+		// get username suggestions
+		$stmt = $this->_db->select("SELECT username FROM user WHERE username LIKE :username LIMIT 27", 
+							 array(':username' => '%'.$searchTerm.'%'));
+		
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		while ($r = $stmt->fetch()) {
+			array_push($usernames, $r);
+		}
+		return $usernames;
+	}
+
 	public function getActiveUserId() {
 		return $_SESSION['active_user_id'];
 	}
