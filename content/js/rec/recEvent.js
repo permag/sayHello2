@@ -29,9 +29,11 @@ $(function(){
 	});
 
 	$('#send').click(function(){
-	
+		var sendButton = $(this);
+
 		if (recordingExists == true && stopped == true) {
 
+			sendButton.attr('disabled', 'disabled');
 			var shareToUsername = $('#shareToUsername').val();
 			// call ajax script
 			$.ajax({
@@ -43,13 +45,33 @@ $(function(){
 				success: function(data){
 					if (typeof parseInt(data) == 'number' && data != null) {
 						$.jRecorder.sendData();
-						$('#shareToUsername').val('')
+						$('#shareToUsername').val('');
+
+						// check when upload is finished.
+						var checkFinished = setInterval(function(){
+							$.ajax({
+								type: 'get',
+								url: './ajax/getRecordingUploadStatus.php',
+								cache: false,
+								success: function(data){
+									if (data == '1') {
+										clearInterval(checkFinished);
+										backend_finished_sending();
+										sendButton.removeAttr('disabled');
+									}
+								}
+
+							});
+						},999);
+
 						return true;
 					} else {
 						if ($.trim(shareToUsername) == 'username' || $.trim(shareToUsername) == '') {
 							$('#status').html('Enter a username');
+							sendButton.removeAttr('disabled');
 						} else {
 							$('#status').html('Username not found');
+							sendButton.removeAttr('disabled');
 						}
 					}
 				}
@@ -89,11 +111,17 @@ function callback_finished_recording(){
 }
 
 function callback_finished_sending(){
- 	$('#status').html('Sending recording...');
- 	setTimeout(function(){
- 		$('#status').html('Recording was sent');
- 		$('#recBeepSend').trigger('play');
- 	}, 2345);
+ 	// $('#status').html('Sending recording...');
+ 	// setTimeout(function(){
+ 	// 	$('#status').html('Recording was sent');
+ 	// 	$('#recBeepSend').trigger('play');
+ 	// }, 2345);
+}
+
+function backend_finished_sending() {
+	$('#status').html('Sending recording...');
+	$('#status').html('Recording was sent');
+	$('#recBeepSend').trigger('play');
 }
 
 function callback_activityLevel(level){

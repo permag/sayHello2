@@ -26,16 +26,21 @@ class RecordCall {
 	}
 
 	public function saveRecording($db) {
+		$recModel = new RecordModel($db);
+		$recModel->setRecordingUploadStatus(false); // set a session to indicate recording began uploading
+
 		$ownerUserId = $_SESSION['active_user_id']; // test
 		$toUserId = $_SESSION['recording_to_userId'];
 		unset($_SESSION['recording_to_userId']);
 		
-		$recModel = new RecordModel($db);
 		$filename = $recModel->setRecordingFilename($ownerUserId);
-		$filenameAndExt = $recModel->saveRecordingToFile($filename);
+		if ($filename != null) {
+			$filenameAndExt = $recModel->saveRecordingToFile($filename);
+			$recId = $recModel->insertRecording($ownerUserId, $toUserId, $filenameAndExt);
 
-		$recId = $recModel->insertRecording($ownerUserId, $toUserId, $filenameAndExt);
+		}
 
+		$recModel->setRecordingUploadStatus(true); 
 	}
 }
 

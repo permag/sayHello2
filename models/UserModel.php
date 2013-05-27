@@ -48,7 +48,9 @@ class UserModel {
 			$user->username = $r['username'];
 			$user->thirdPartyType = $r['third_party_type'];
 			$user->thirdPartyId = $r['third_party_id'];
-			$user->profilePhotoUrl = 'https://graph.facebook.com/'.$r['third_party_id'].'/picture?type=large';
+			if ($r['third_party_type'] == 1) {
+				$user->profilePhotoUrl = 'https://graph.facebook.com/'.$r['third_party_id'].'/picture?type=large';
+			}
 		}
 		$stmt = null;
 

@@ -6,7 +6,7 @@ sayHello.config(function($routeProvider, $locationProvider) {
 // $locationProvider.html5Mode(true);
 
 $routeProvider
-	.when('/', {templateUrl: './views/partials/_recordingList.html'})
+	.when('/', {templateUrl: './views/partials/_recordingList.html', controller: 'AppCtrl'})
 	.when('/show/:userId', {templateUrl: './views/partials/_recordings.html', controller: 'ShowCtrl'})
 	.otherwise({redirectTo: '/'});
 
@@ -91,14 +91,3 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 
 sayHello.controller(controllers);
 
-
-
-
-
-// sayHello.controller('AppCtrl', function($scope, $location, $http) {
-// 	$scope.recordings = [
-// 		{"username": "killingfloor", "date": "2013-02-22 06:47:22", "url": "test.wav"},
-// 		{"username": "uhno", "date": "2013-02-22 09:48:25", "url": "test.wav"},
-// 		{"username": "hasseman", "date": "2013-02-22 11:37:27", "url": "test.wav"}
-// 	];
-// });

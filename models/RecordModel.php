@@ -19,7 +19,7 @@
 
 		private $m_db = null;
 
-		public function __construct(Database $db) {
+		public function __construct($db) {
 			$this->m_db = $db;
 		}
 
@@ -93,9 +93,12 @@
 			}
 		}
 
+		public function setRecordingUploadStatus($trueFalse) {
+			$_SESSION['recording_is_uploaded'] = $trueFalse;
+		}
 
 		public function recordingIsUploaded() {
-			if (isset($_SESSION['recording_is_uploaded'])) {
+			if (isset($_SESSION['recording_is_uploaded']) && $_SESSION['recording_is_uploaded'] == true) {
 				unset($_SESSION['recording_is_uploaded']);
 				return true;
 			} else {
