@@ -18,7 +18,7 @@ class LoginController {
 		$thirdPartyType = 1;
 		$thirdPartyId = $user;
 		// check if facebook user already is registered here.
-		$userId = $userModel->getUserIdThirdParty($thirdPartyType, $thirdPartyId);
+		$userId = $userModel->getUserIdFromThirdParty($thirdPartyType, $thirdPartyId);
 		if ($userId) {
 			$userModel->setActiveUserIdSession($userId);
 			header('location: ./');

@@ -47,7 +47,8 @@ class UserModel {
 			$user->email = $r['email'];
 			$user->username = $r['username'];
 			$user->thirdPartyType = $r['third_party_type'];
-			$user->thirdPartyId = $r['third_party_id']; 
+			$user->thirdPartyId = $r['third_party_id'];
+			$user->profilePhotoUrl = 'https://graph.facebook.com/'.$r['third_party_id'].'/picture?type=large';
 		}
 		$stmt = null;
 
@@ -55,7 +56,7 @@ class UserModel {
 	}
 
 	// get user_id (pk) for third party user
-	public function getUserIdThirdParty($thirdPartyType, $thirdPartyId) {
+	public function getUserIdFromThirdParty($thirdPartyType, $thirdPartyId) {
 		// thirdPartyType 1 = facebook
 		// thirdPartyType 2 = google+
 		

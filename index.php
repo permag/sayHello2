@@ -31,16 +31,17 @@ $db = null;
 			<div id="topBarWrap">
 				<div id="topBarLogo">sayHello.</div>
 				<div id="topBarRefresh"><a href="#"><img src="./content/img/reload.png"></a></div>
+				<div id="topBarUserContainer">
+					<div id="topBarLogout"><button id="logoutLink">Logout</button></div>
+					<div id="topBarUsername"><?php echo $user->username; ?></div>
+				</div>
 			</div>
 		</div>
 		<div id="container">
-			<div id="leftSection"><h1 id="logo"><a href="./">sayHELLO.</a></h1><br />
+			<div id="leftSection">
 				<div id="sideMenu">
-				<ul>
-					<li><a href="#">Inbox</a></li>
-				</ul>
-				<p><?php echo $user->username; ?></p>
-				<button id="logoutLink" class="btn btn-mini">Logout</button>
+					<img id="profilePhoto" src="<?php echo $user->profilePhotoUrl; ?>">
+					<p id="usernameBox"><?php echo $user->username; ?></p>
 				</div>
 			</div>
 

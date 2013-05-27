@@ -79,6 +79,21 @@ object, embed {
 #topBarRefresh a {
 	color: white;
 }
+#topBarUserContainer {
+	float: right;
+	width: 300px;
+	margin-top: 3px;
+}
+#topBarUsername {
+	float: right;
+	color: white;
+	font-size: 10px;
+	margin-top: 5px;
+}
+#topBarLogout {
+	float: right;
+	margin: 0 0 0 15px;
+}
 
 #container {
 	position: relative;
@@ -151,7 +166,7 @@ h1#logo, h1#logo a {
 	user-select: none;
 }
 #sideMenu  {
-	margin-bottom: 40px;
+	margin-bottom: 3px;
 }
 #sideMenu li, #sideMenu a {
 	font-size: 19px;
@@ -167,6 +182,20 @@ h1#logo, h1#logo a {
 	color: #0e0e0e;
 } 
 
+#profilePhoto {
+	width: 190px;
+
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+  	-webkit-box-shadow: #777 0 0 3px;
+	-moz-box-shadow: #777 0 0 3px;
+	box-shadow: #777 0 0 3px;
+}
+#usernameBox {
+	margin: 20px 0;
+}
+
 /* list of recs */
 #audioListHeader {
 	background: #ff5e10;
@@ -178,7 +207,6 @@ h1#logo, h1#logo a {
 	-moz-border-radius: 9px 9px 0 0;
 	border-radius: 9px 9px 0 0;
 	text-align: center;
-
 }
 #recordingList {
 	padding: 7px;
