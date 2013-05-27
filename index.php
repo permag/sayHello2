@@ -30,7 +30,7 @@ $db = null;
 		<div id="topBar">
 			<div id="topBarWrap">
 				<div id="topBarLogo">sayHello.</div>
-				<div id="topBarRefresh"><a href="#">refresh</a></div>
+				<div id="topBarRefresh"><a href="#"><img src="./content/img/reload.png"></a></div>
 			</div>
 		</div>
 		<div id="container">

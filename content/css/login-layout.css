@@ -1,0 +1,40 @@
+body {
+	font-family: Verdana, sans-serif;
+	background: #5d5d5d;
+}
+h1 {
+	font-size: 25px;
+	color: #ff5e10;
+}
+h2 {
+	font-size: 21px;
+	margin: 7px 3px 9px 20px;
+	color: #ff5e10;
+}
+h3 {
+	font-size: 18px;
+	padding: 3px;
+}
+p {
+	font-size: 12px;
+}
+#container {
+	width: 400px;
+	margin: 20px auto;
+}
+#regText {
+	font-size: 12px;
+	margin: 15px 0;
+}
+#registerUsername {
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+	padding: 1px 4px;
+	font-weight: bold;
+	border-width: 0;
+}
+#registerInfo {
+	margin: 15px 0 0 0;
+	color: red;
+}

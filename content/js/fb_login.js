@@ -70,6 +70,6 @@ function logout() {
   FB.logout(function(response) {
     // user is now logged out
     $('#logoutLink').html('Logging out...').attr('disabled', 'disabled');
-    window.location = './login.php';
+    window.location = './logout.php';
   });
 }

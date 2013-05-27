@@ -1,5 +1,7 @@
 var sayHello = angular.module('sayHello', []);
 
+sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
+
 sayHello.config(function($routeProvider, $locationProvider) {
 // $locationProvider.html5Mode(true);
 
@@ -44,9 +46,8 @@ sayHello.filter('fromNow', function() {
 
 // filter: individual colors for users recordingList "folder"
 sayHello.filter('userColor', function() {
-	var colors = ['#ffd17e', '#e9c073', '#d9b36b', '#cba764', '#bf9d5e', '#b6965a', '#aa8c54', '#a0844f', '#a0844f'];
 	return function(username) {
-		return colors[username.length];
+		return sayHello.userColors[username.length - 1];
 	}
 });
 
@@ -65,16 +66,14 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 
 controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 	if ($routeParams.userId != null) {
-		init($routeParams.userId);
+		init($routeParams.userId, 0, 100);
 	}
 	$scope.recordings = [];
 
-	function init(userId) {
+	// userId for which user has a conversation with, start offset, take limit
+	function init(userId, start, take) {
 		var recDiv = $('#rec_' + userId);
 		recDiv.append('<div id="loader"><img src="./content/img/ajax-loader-1.gif" /></div>');
-		// offset, limit DB
-		var start = 0;
-		var take = 19;
 
 		recordingsFactory.getRecordings(userId, start, take).success(function(data) {
 			$('#loader').remove();
@@ -84,7 +83,7 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 
 	// "drop down" to show recordings using template
 	$scope.dropDownRecs = function(userId) {
-		init(userId);
+		init(userId, 0, 2);
 		$scope.templates = [{name: '_recordings.html', url: './views/partials/_recordings.html'}];
 		$scope.template = $scope.templates[0];
 	};

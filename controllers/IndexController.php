@@ -12,7 +12,11 @@ class IndexController {
 	public function userControl() {
 		$userModel = new UserModel($this->_db);
 		$userId = $userModel->getActiveUserId();
-		$user = $userModel->getUser($userId);
-		return $user;
+		if ($userId) {
+			$user = $userModel->getUser($userId);
+			return $user;
+		} else {
+			header('location: login.php');
+		}
 	}
 }

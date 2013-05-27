@@ -14,7 +14,7 @@ class RecordingsModel {
 	public function getRecordingList($activeUserId) {
 		$recordingList = array();
 
-		$stmt = $this->_db->select("SELECT DISTINCT user.user_id, user.username 
+		$stmt = $this->_db->select("SELECT DISTINCT user.user_id, user.username
 									FROM user
 									INNER JOIN recording
 									ON user.user_id = recording.owner_user_id OR user.user_id = recording.to_user_id
@@ -45,8 +45,8 @@ class RecordingsModel {
 		$recordings = array();
 
 		$stmt = $this->_db->select("SELECT user.user_id, user.username, 
-									recording.recording_id, recording.filename, recording.date_time, 
-									recording.to_user_id, recording.owner_user_id
+										   recording.recording_id, recording.filename, recording.date_time, 
+										   recording.to_user_id, recording.owner_user_id
 									FROM user
 									INNER JOIN recording
 									ON user.user_id = recording.owner_user_id 

@@ -55,7 +55,7 @@ object, embed {
 	font-weight: bold;
 	color: white;
 	text-decoration: none;
-	text-shadow: 3px 3px 18px #fbfff8;
+	text-shadow: 3px 3px 18px #bfc2bc;
 	padding: 4px 0 0 0;
 	display: block;
 	float: left;
@@ -69,7 +69,8 @@ object, embed {
 }
 #topBarRefresh {
 	width: 40px;
-	margin: 12px 0 0 250px;
+	text-align: center;
+	margin: 6px 0 0 250px;
 	display: block;
 	float: left;
 	color: white;
@@ -78,6 +79,7 @@ object, embed {
 #topBarRefresh a {
 	color: white;
 }
+
 #container {
 	position: relative;
 	z-index: 2;

@@ -8,7 +8,7 @@
 		const FILE_EXTENSION = '.wav';
 		
 		// session to retireive memberId from "send rec to username"
-		const MEMBERID_SHARE_SESSION = 'ajax_memberIdToShare';
+		const MEMBERID_SHARE_SESSION = 'ajax_memberIdToShare'; ///////
 
 		// time
 		private static $m_timeZone = 'Europe/Berlin';
@@ -90,6 +90,16 @@
 				return $memberId;
 			} else {
 				return null;
+			}
+		}
+
+
+		public function recordingIsUploaded() {
+			if (isset($_SESSION['recording_is_uploaded'])) {
+				unset($_SESSION['recording_is_uploaded']);
+				return true;
+			} else {
+				return false;
 			}
 		}
 
