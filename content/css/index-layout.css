@@ -36,11 +36,13 @@ object, embed {
 
 #topBar {
 	position: fixed;
-	z-index: 99999;
+	z-index: 999999;
 	width: 100%;
 	height: 30px;
 	background: #302f2e;
 	overflow: hidden;
+	top: 0;
+	left: 0;
 
 	-webkit-box-shadow: #000 0 0 3px;
 	-moz-box-shadow: #000 0 0 3px;
@@ -70,7 +72,7 @@ object, embed {
 #topBarRefresh {
 	width: 40px;
 	text-align: center;
-	margin: 6px 0 0 250px;
+	margin: 3px 0 0 250px;
 	display: block;
 	float: left;
 	color: white;
@@ -79,10 +81,32 @@ object, embed {
 #topBarRefresh a {
 	color: white;
 }
+#topBarRefresh img:active {
+    -webkit-animation-name: rotate; 
+    -webkit-animation-duration: 1s; 
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+
+    -moz-animation-name: rotate; 
+    -moz-animation-duration: 1s; 
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+}
+@-webkit-keyframes rotate {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+    from {-moz-transform: rotate(0deg);}
+    to {-moz-transform: rotate(360deg);}
+}
 #topBarUserContainer {
 	float: right;
 	width: 300px;
 	margin-top: 3px;
+	position: relative;
+	z-index: 1;
 }
 #topBarUsername {
 	float: right;
@@ -96,11 +120,9 @@ object, embed {
 }
 
 #container {
-	position: relative;
-	z-index: 2;
-	top: 30px;
 	width: 790px;
 	margin: 0 auto;
+	margin-top: 30px;
 	padding: 12px;
 	display: block;
 	overflow: auto;
@@ -142,6 +164,7 @@ object, embed {
 	background: #ff5e10;
 	color: white;
 	padding: 9px;
+	z-index: 999999;
 
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
@@ -243,6 +266,8 @@ audio {
 	display: inline;
 }
 .username {
+	cursor: pointer;
+	color: #96370a;
 }
 /* from session username */
 #username {
@@ -330,11 +355,15 @@ audio {
 	box-shadow: #777 0 0 7px;
 	color: #999;
 	font-size: 11px;
+	position: relative;
+	z-index: 999999;
 }
 #recorderLevel {
 	float: left;
 	width: 99px;
 	padding: 5px;
+	position: relative;
+	z-index: 999999;
 }
 #recorderTime {
 	padding: 5px;
@@ -357,6 +386,8 @@ audio {
 	-moz-border-radius: 9px;
 	border-radius: 9px;
 	background: white;
+	position: relative;
+	z-index: 999999;
 }
 #levelbar {
 	height: 20px;
@@ -392,8 +423,8 @@ audio {
 }
 #rightSection.fixed {
   position: fixed;
-  top: 0; /* height of headerBar */
-  z-index: 9;
+  top: 30px; /* height of headerBar */
+  z-index: 999999;
 }
 
 /* *** */
@@ -434,23 +465,3 @@ audio {
 
 
 
-#topBarRefresh:active {
-    -webkit-animation-name: rotate; 
-    -webkit-animation-duration: 1s; 
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-
-    -moz-animation-name: rotate; 
-    -moz-animation-duration: 1s; 
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: linear;
-}
-@-webkit-keyframes rotate {
-    from {-webkit-transform: rotate(0deg);}
-    to {-webkit-transform: rotate(360deg);}
-}
-
-@-moz-keyframes rotate {
-    from {-moz-transform: rotate(0deg);}
-    to {-moz-transform: rotate(360deg);}
-}

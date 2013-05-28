@@ -89,5 +89,15 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 	};
 };
 
+controllers.ReplyCtrl = function($scope) {
+	$scope.replyTo = function(username) {
+		if (username.toLowerCase() == 'you') {
+			$('#shareToUsername').val($('#topBarUsername').html());
+		} else {
+			$('#shareToUsername').val(username);
+		}
+	};
+};
+
 sayHello.controller(controllers);
 
