@@ -1,6 +1,7 @@
 var sayHello = angular.module('sayHello', []);
 
 sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
+sayHello.checkForNewInterval = null;
 
 sayHello.config(function($routeProvider, $locationProvider) {
 // $locationProvider.html5Mode(true);
@@ -24,6 +25,18 @@ sayHello.factory('recordingListFactory', function($http) {
 	return factory;
 });
 
+// newRecordingListFactory
+sayHello.factory('newRecordingListFactory', function($http) {
+	var factory = {};
+	factory.getNewRecordingList = function() {
+		return $http({
+			url: './ajax/getNewRecordingList.php',
+			method: 'GET'
+		});
+	};
+	return factory;
+});
+
 // recordings factory
 sayHello.factory('recordingsFactory', function($http) {
 	var factory = {};
@@ -32,6 +45,18 @@ sayHello.factory('recordingsFactory', function($http) {
 			url: './ajax/getRecordings.php',
 			method: 'GET',
 			params: {'user_id': userId, 'start': start, 'take': take}
+		});
+	};
+	return factory;
+});
+
+// event check factory
+sayHello.factory('eventFactory', function($http) {
+	var factory = {};
+	factory.newRecordingsCount = function() {
+		return $http({
+			url: './ajax/checkForNewRecordings.php',
+			method: 'GET'
 		});
 	};
 	return factory;
@@ -85,7 +110,7 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 	$scope.dropDownRecs = function(userId) {
 		init(userId, 0, 2);
 		$scope.templates = [{name: '_recordings.html', url: './views/partials/_recordings.html'}];
-		$scope.template = $scope.templates[0];
+		$scope.templateRecordings = $scope.templates[0];
 	};
 };
 
@@ -96,6 +121,42 @@ controllers.ReplyCtrl = function($scope) {
 		} else {
 			$('#shareToUsername').val(username);
 		}
+	};
+};
+
+controllers.EventCtrl = function($scope, eventFactory, newRecordingListFactory) {
+	if (sayHello.checkForNewInterval == null) {
+		newRecs();
+	} else {
+		clearInterval(sayHello.checkForNewInterval);
+	}
+	$scope.newRecordingList = [];
+
+	sayHello.checkForNewInterval = window.setInterval(function() {
+		newRecs();
+	}, 10000); // check for new recordings and auto update event notice
+
+	function newRecs() {
+		eventFactory.newRecordingsCount().success(function(data) {
+			if (data > 0) {
+				$('#topBarCountNewRecs').html(data).show();
+			}
+		});
+	}
+	function init() {
+		newRecordingListFactory.getNewRecordingList().success(function(data) {
+			$scope.newRecordingList = data;
+		});
+	}
+	$scope.getNewRecordingList = function() {
+		init();
+		
+		$scope.templates = [{name: '_newRecordingList.html', url: './views/partials/_newRecordingList.html'}];
+		$scope.templateList = $scope.templates[0];
+	};
+
+	$scope.clickForNewRecordingList = function() {
+		$('#clickForNewRecordingList').click();
 	};
 };
 

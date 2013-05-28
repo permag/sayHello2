@@ -30,7 +30,10 @@ $db = null;
 		<div id="topBar">
 			<div id="topBarWrap">
 				<div id="topBarLogo">sayHello.</div>
-				<div id="topBarRefresh"><a href="#"><img src="./content/img/reload.png"></a></div>
+				<div id="topBarRefresh"><a href="#">
+					<img src="./content/img/reload.png"></a>
+					<div ng-controller="EventCtrl" ng-click="clickForNewRecordingList()" id="topBarCountNewRecs"></div>
+				</div>
 				<div id="topBarUserContainer">
 					<div id="topBarLogout"><button id="logoutLink">Logout</button></div>
 					<div id="topBarUsername"><?php echo $user->username; ?></div>

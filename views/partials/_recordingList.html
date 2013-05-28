@@ -1,5 +1,9 @@
 <input type="text" ng-model="filter.username" placeholder="Filter..."/>
 
+<div ng-controller="EventCtrl" ng-click="getNewRecordingList()" id="clickForNewRecordingList">aaaa
+	<div ng-include src="templateList.url"></div>
+</div>
+
 <div ng-controller="ShowCtrl" id="rec_{{rec.user_id}}" class="recordingDiv" style="background-color:{{rec.username|userColor}}" ng-repeat="rec in recordingList | filter:filter.username">
 	<p class="from"><a class="username" ng-controller="ReplyCtrl" ng-click="replyTo(rec.username)">{{rec.username}}</a> {{rec.user_id}}</p>
 	<span ng-click="dropDownRecs(rec.user_id)">fold</span>
@@ -10,8 +14,7 @@
 
 
 	<div>
-		<div ng-include src="template.url"></div>
+		<div ng-include src="templateRecordings.url"></div>
 	</div>
-
 
 </div>

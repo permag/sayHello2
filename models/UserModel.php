@@ -3,6 +3,9 @@
 class UserModel {
 
 	private $_db = null;
+	
+	// reserved usernames
+	private static $_reservedUsernames = 'username, admin, root, staff, you, sayhello';
 
 	public function __construct(Database $db) {
 		$this->_db = $db;
@@ -112,6 +115,18 @@ class UserModel {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public function isUsernameReserved($username) {
+		$username = strtolower($username);
+		$reservedUsernames = array();
+		$reservedUsernames = explode(',', self::$_reservedUsernames);
+
+		foreach ($reservedUsernames as $r) {
+			if ($username == trim(strtolower($r))) {
+				return true;
+			}
 		}
 	}
 

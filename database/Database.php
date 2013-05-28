@@ -51,7 +51,7 @@ class Database {
 	 * @param string, SQL-statement
 	 * @return associative array, result
 	 */
-	public function selectCountAll($sqlQuery, Array $param) {
+	public function selectCountAll($sqlQuery, Array $param=null) {
 		try {
 			$ret = 0;
 			$stmt = $this->pdo->prepare($sqlQuery);

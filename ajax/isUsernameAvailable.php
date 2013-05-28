@@ -16,7 +16,7 @@ if ($username) {
 
 	if ($validator->ValidateUsername($username)) {
 
-		if ($userModel->isUsernameAvailable($username)) {
+		if ($userModel->isUsernameAvailable($username) && !$userModel->isUsernameReserved($username)) {
 			echo '1'; // username is available
 		} else {
 			echo '0';

@@ -75,4 +75,46 @@ class RecordingsModel {
 		}
 		return $recordings;
 	}
+
+	/**
+	 * @param  $activeUserId 
+	 * @return nr of new recs
+	 */
+	public function newRecordingsExist($activeUserId) {
+		$stmt = $this->_db->selectCountAll("SELECT COUNT(*) 
+											FROM recording
+											WHERE new = 1
+											AND to_user_id = :activeUserId",
+											array(':activeUserId' => $activeUserId));
+
+		if ($stmt > 0) {
+			return $stmt;
+		} else {
+			return false;
+		}
+	}
+
+	public function getNewRecordingList($activeUserId) {
+		$recordingList = array();
+		
+		$stmt = $this->_db->select("SELECT DISTINCT user.user_id, user.username
+									FROM user
+									INNER JOIN recording
+									ON user.user_id = recording.owner_user_id OR user.user_id = recording.to_user_id
+									WHERE (recording.owner_user_id = :activeUserId
+									OR recording.to_user_id = :activeUserId)
+									AND recording.new = 1
+									ORDER BY recording.date_time DESC",
+									array(':activeUserId' => $activeUserId));
+
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		while ($r = $stmt->fetch()) {
+			$tmp = array();
+			$tmp['user_id'] = $r['user_id'];
+			$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			array_push($recordingList, $tmp);
+		}
+		return $recordingList;
+	}
 }

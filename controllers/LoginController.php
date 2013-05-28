@@ -30,9 +30,9 @@ class LoginController {
 		}
 	}
 
-	public function fbLoginView($user, $user_profile) {
-		return '<img src="https://graph.facebook.com/'.$user.'/picture?type=large" class="profilePic">
-				<span class="profileName">'.$user_profile['first_name'] . ' ' . $user_profile['last_name'].'</span>
-				<button id="logoutLink" class="btn btn-mini">Logout</button>';
-	}
+	// public function fbLoginView($user, $user_profile) {
+	// 	return '<img src="https://graph.facebook.com/'.$user.'/picture?type=large" class="profilePic">
+	// 			<span class="profileName">'.$user_profile['first_name'] . ' ' . $user_profile['last_name'].'</span>
+	// 			<button id="logoutLink" class="btn btn-mini">Logout</button>';
+	// }
 }

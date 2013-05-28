@@ -16,8 +16,6 @@ if ($user) {
 	$loginController = new LoginController($db);
 	$loginController->loginControl($user);
 	$db = null;
-
-	$fbLoginView = $loginController->fbLoginView($user, $user_profile);
 }
 
 ?>
@@ -37,12 +35,6 @@ if ($user) {
 		<div id="fb-root"></div>
 
 		<div id="container" class="container">
-
-			<?php
-			// FACEBOOK
-			if ($user):
-					echo $fbLoginView;
-			endif ?>
 
 			<?php if (!$user): ?>
 				<h1>sayHello</h1>

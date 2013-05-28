@@ -77,9 +77,29 @@ object, embed {
 	float: left;
 	color: white;
 	font-size: 11px;
+	position: relative;
 }
 #topBarRefresh a {
 	color: white;
+}
+#topBarCountNewRecs {
+	border: 1px solid white;
+	min-width: 10px;
+	background: red;
+	position: absolute;
+	top: 4px;
+	left: 43px;
+	font-size: 9px;
+	font-weight: bold;
+	line-height: 1.1;
+	padding: 2px;
+
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+
+	display: none;
+	cursor: pointer;
 }
 #topBarRefresh img:active {
     -webkit-animation-name: rotate; 
