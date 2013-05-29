@@ -1,14 +1,14 @@
 $(function(){
 
 	// keypress
-   $(document).keypress(function(e) {
-       var key = e.which;
-       if (key == 114 && e.ctrlKey) { // "r"
-       	$('#record').click();
-       } else if (key == 112 && e.ctrlKey) { // "p"
-       	$('#stop').click();
-       }
-   });
+	$(document).keypress(function(e) {
+	   var key = e.which;
+	   if (key == 114 && e.ctrlKey) { // "r"
+	   	$('#record').click();
+	   } else if (key == 112 && e.ctrlKey) { // "p"
+	   	$('#stop').click();
+	   }
+	});
 
 	// new recordings marking
 	$('.newRecording').slideDown('slow');

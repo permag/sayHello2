@@ -34,6 +34,24 @@ class RecordingsModel {
 		return $recordingList;
 	}
 
+	public function getUserIdsWithNewRecordings($activeUserId) {
+		$ownerUserIds = array();
+		$stmt = $this->_db->select("SELECT DISTINCT owner_user_id
+									FROM recording
+									WHERE to_user_id = :activeUserId
+									AND new = 1",
+									array(':activeUserId' => $activeUserId));
+
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		while ($r = $stmt->fetch()) {
+			$tmp = array();
+			$tmp['owner_user_id'] = $r['owner_user_id'];
+			array_push($ownerUserIds, $tmp);
+		}
+		return $ownerUserIds;
+	}
+
 	/**
 	* Select recordings dialog between active user and user with "clicked" user id
 	* När vi klickar på ett ID tillhörande Hasse
@@ -46,7 +64,7 @@ class RecordingsModel {
 
 		$stmt = $this->_db->select("SELECT user.user_id, user.username, 
 										   recording.recording_id, recording.filename, recording.date_time, 
-										   recording.to_user_id, recording.owner_user_id
+										   recording.to_user_id, recording.owner_user_id, recording.new
 									FROM user
 									INNER JOIN recording
 									ON user.user_id = recording.owner_user_id 
@@ -54,7 +72,7 @@ class RecordingsModel {
 									AND recording.owner_user_id = :activeUserId
 									OR (recording.to_user_id = :activeUserId
 									AND recording.owner_user_id = :userIdToShowRecordingsFor)
-									ORDER BY recording.date_time DESC 
+									ORDER BY recording.new DESC, recording.date_time DESC 
 									LIMIT ".$start.", ".$take."",
 									array(':userIdToShowRecordingsFor' => $userIdToShowRecordingsFor,
 										   ':activeUserId' => $activeUserId));
@@ -70,6 +88,15 @@ class RecordingsModel {
 			$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
 			$tmp['to_user_id'] = $r['to_user_id'];
 			$tmp['owner_user_id'] = $r['owner_user_id'];
+			$tmp['new'] = $r['new'];
+
+			if ($r['new'] == 1 && $r['to_user_id'] == $activeUserId) { // new to you, from friend
+				$tmp['new'] = 'new';
+			} else if ($r['new'] == 1 && $r['owner_user_id'] == $activeUserId) { // from you, unheard to friend
+				$tmp['new'] = 'unheard';
+			} else {
+				$tmp['new'] = 0;
+			}
 
 			array_push($recordings, $tmp);
 		}
@@ -96,7 +123,7 @@ class RecordingsModel {
 
 	public function getNewRecordingList($activeUserId) {
 		$recordingList = array();
-		
+
 		$stmt = $this->_db->select("SELECT DISTINCT user.user_id, user.username
 									FROM user
 									INNER JOIN recording
@@ -116,5 +143,15 @@ class RecordingsModel {
 			array_push($recordingList, $tmp);
 		}
 		return $recordingList;
+	}
+
+	public function removeNewMark($activeUserId, $recordingId) {
+		$stmt = $this->_db->update("UPDATE recording
+									SET new = 0
+									WHERE recording_id = :recordingId
+									AND to_user_id = :activeUserId",
+									array(':recordingId' => $recordingId,
+										  ':activeUserId' => $activeUserId));
+		return $stmt; // rowcount
 	}
 }

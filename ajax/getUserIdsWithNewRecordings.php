@@ -14,10 +14,10 @@ if ($activeUserId) {
 	$db->connect();
 	$recordingsModel = new RecordingsModel($db);
 
-	$newRecordings = $recordingsModel->newRecordingsExist($activeUserId);
+	$userIds = $recordingsModel->getUserIdsWithNewRecordings($activeUserId);
 
-	if ($newRecordings) {
-		echo $newRecordings;
+	if ($userIds) {
+		echo json_encode($userIds);
 	} else {
 		echo '0';
 	}

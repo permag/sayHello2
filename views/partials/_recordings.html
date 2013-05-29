@@ -1,9 +1,9 @@
 <!-- recordings -->
 <div class="recordings">
 	<ul>
-		<li ng-repeat="recs in recordings">
-			<p title="{{recs.date_time}}">{{recs.username}}, {{recs.date_time|fromNow}}</p>
-			<audio ng-src="./recs/{{recs.filename}}" controls></audio>
+		<li ng-repeat="recs in recordings" id="rec_id_{{recs.recording_id}}">
+			<p class="recordingFromBar" title="{{recs.date_time}}">{{recs.username}}, {{recs.date_time|fromNow}}</p><p class="newRecordingMark">{{recs.new|markAsNew}}</p>
+			<audio ng-src="./recs/{{recs.filename}}" controls class="{{recs.new|removeNewMark}}" ng-click="removeNewMark(recs.recording_id)"></audio>
 		</li>
 	</ul>
 </div><!-- recordings end -->

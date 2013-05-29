@@ -32,7 +32,7 @@ $db = null;
 				<div id="topBarLogo">sayHello.</div>
 				<div id="topBarRefresh"><a href="#">
 					<img src="./content/img/reload.png"></a>
-					<div ng-controller="EventCtrl" ng-click="clickForNewRecordingList()" id="topBarCountNewRecs"></div>
+					<a href="#"><div id="topBarCountNewRecs"></div></a>
 				</div>
 				<div id="topBarUserContainer">
 					<div id="topBarLogout"><button id="logoutLink">Logout</button></div>

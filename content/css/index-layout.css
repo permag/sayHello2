@@ -259,10 +259,27 @@ h1#logo, h1#logo a {
 	-moz-border-radius: 9px;
 	border-radius: 9px;
 }
+.recListHasNewRecordings {
+	font-weight: bold;
+}
 .recordingDiv {
 	padding: 4px;
 	margin: 5px 5px 11px 5px;
 	background: #e0dbdf
+}
+.recordings {
+	margin-top: 7px;
+}
+.recordingFromBar {
+	float: left;
+	font-size: 12px;
+	margin: 7px 0 1px 0;
+}
+.newRecordingMark {
+	float: right;
+	font-size: 9px;
+	font-weight: bold;
+	margin: 14px 0 0 0;
 }
 .newRecording {
 	background: #cb8525;
