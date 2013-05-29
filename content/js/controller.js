@@ -113,7 +113,7 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 
 controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 	if ($routeParams.userId != null) {
-		init($routeParams.userId, 0, 100);
+		init($routeParams.userId, 0, 150);
 	}
 	$scope.recordings = [];
 
@@ -149,7 +149,7 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 
 	// "drop down" to show recordings using template
 	$scope.dropDownRecs = function(userId) {
-		init(userId, 0, 12);
+		init(userId, 0, 7);
 		$scope.templates = [{name: '_recordings.html', url: './views/partials/_recordings.html'}];
 		$scope.templateRecordings = $scope.templates[0];
 	};
@@ -198,56 +198,11 @@ controllers.EventCtrl = function($scope, eventFactory, $compile, $filter, newRec
 				$('.recordingDiv').find('.recListHasNewRecordings').empty();
 				$.each(data, function(i, item) {
 					$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
+					//$('#rec_' + item.owner_user_id).prependTo($('#recListInnerContainer')).fadeIn('slow');
 				});
 			}
 		});
 	}
-	// function init() {
-	// 	newRecordingListFactory.getNewRecordingList().success(function(data) {
-	// 		$scope.newRecordingList = data;
-	// 		$.each(data, function(i, item){
-	// 			if ($('#rec_'+item.user_id).length > 0) {
-	// 				$('#rec_'+item.user_id).hide().remove();
-	// 			}
-	// 		});
-	// 	});
-	// }
-	// $scope.getNewRecordingList = function() {
-	// 	init();
-		
-	// 	$scope.templates = [{name: '_newRecordingList.html', url: './views/partials/_newRecordingList.html'}];
-	// 	$scope.templateList = $scope.templates[0];
-	// };
-
-	// $scope.dropDownNewRecs = function(userId) {
-	// 	recordingsFactory.getRecordings(userId, 0, 2).success(function(data) {
-	// 		var newDom = '';
-	// 		$.each(data, function(i, item){
-	// 			var dateTime = $filter('fromNow')(item.date_time);
-	// 			newDom += '<div class="recordings"><ul><li>';
-	// 			newDom += '<p title="'+item.date_time+'">'+item.username+', '+dateTime+'</p>';
-	// 			newDom += '<audio ng-src="./recs/'+item.filename+'" controls></audio>';
-	// 			newDom += '</li></ul></div>';
-
-	// 		});
-	// 		var compiledDom = $compile(newDom)($scope);
-	// 		//$('#newRecordings_' +userId).append(newDom);
-	// 		///////$('#newRecordings_' +userId).append(compiledDom);
-	// 		//$('#container').append(compiledDom);
-	// 		//console.log($('#newRecordings_' +userId).length)
-	// 		//$('body').append($('#newRecordings_' +userId).html())
-			
-	// 		var testDom = $('#newRecordings_' +userId);
-	// 		$('#newRecordings_' +userId).before(testDom.html());
-	// 		$('#newRecordings_' +userId).remove();
-	// 		testDom.append(compiledDom);
-
-	// 	});
-	// };
-
-	// $scope.clickForNewRecordingList = function() {
-	// 	$('#clickForNewRecordingList').click();
-	// };
 };
 
 sayHello.controller(controllers);

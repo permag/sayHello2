@@ -45,11 +45,18 @@ $db = null;
 				<div id="sideMenu">
 					<img id="profilePhoto" src="<?php echo $user->profilePhotoUrl; ?>">
 					<p id="usernameBox"><?php echo $user->username; ?></p>
+					<p><a href="./#/show/<?php echo $user->userId; ?>">my memos</a></p>
 				</div>
 			</div>
 
 			<div id="mainSection">
-				<h3 id="audioListHeader"><a href="#">Conversations</a></h3>
+				<div id="audioListHeaderContainer">
+					<h3 id="audioListHeader"><a href="#">Conversations</a></h3>
+					<div id="filterContainer">
+						<input id="filterInput" type="text" ng-model="filter.username" placeholder="Filter..."/>
+					</div>
+				</div>
+
 
 				<div id="recordingList">
 

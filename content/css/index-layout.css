@@ -84,19 +84,20 @@ object, embed {
 }
 #topBarCountNewRecs {
 	border: 1px solid white;
-	min-width: 10px;
+	min-width: 11px;
+	height: 11px;
 	background: red;
 	position: absolute;
 	top: 4px;
 	left: 43px;
 	font-size: 9px;
 	font-weight: bold;
-	line-height: 1.1;
+	line-height: 1.2;
 	padding: 2px;
 
-	-webkit-border-radius: 9px;
-	-moz-border-radius: 9px;
-	border-radius: 9px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
 
 	display: none;
 	cursor: pointer;
@@ -240,7 +241,15 @@ h1#logo, h1#logo a {
 }
 
 /* list of recs */
+#audioListHeaderContainer {
+	width: 350px;
+	display: inline-block;
+	margin: 0;
+	margin-bottom: -2px;
+}
 #audioListHeader {
+	float: left;
+	display: block;
 	background: #ff5e10;
 	color: white;
 	font-size: 14px;
@@ -251,6 +260,23 @@ h1#logo, h1#logo a {
 	border-radius: 9px 9px 0 0;
 	text-align: center;
 }
+#filterContainer {
+	float: right;
+	width: 160px;
+	margin: 0 9px 2px 0;
+	position: relative;
+	top: -4px;
+}
+#filterInput {
+	border: none;
+	height: 12px;
+	width: 140px;
+	padding: 2px 5px;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+	outline: 0;
+}
 #recordingList {
 	padding: 7px;
 	background: white;
@@ -260,7 +286,10 @@ h1#logo, h1#logo a {
 	border-radius: 9px;
 }
 .recListHasNewRecordings {
+	font-size: 11px;
 	font-weight: bold;
+	float: right;
+	margin: 2px 6px 0 6px;
 }
 .recordingDiv {
 	padding: 4px;
@@ -270,16 +299,20 @@ h1#logo, h1#logo a {
 .recordings {
 	margin-top: 7px;
 }
+.recordings li {
+	background: rgba(0, 0, 0, 0.2);
+	padding: 3px;
+	margin-bottom: 5px;
+}
 .recordingFromBar {
 	float: left;
 	font-size: 12px;
-	margin: 7px 0 1px 0;
+	margin: 1px 0 3px 0;
 }
 .newRecordingMark {
 	float: right;
-	font-size: 9px;
+	font-size: 10px;
 	font-weight: bold;
-	margin: 14px 0 0 0;
 }
 .newRecording {
 	background: #cb8525;
@@ -295,9 +328,18 @@ h1#logo, h1#logo a {
 	padding-top: 3px;
 	font-size: 10px;
 }
+.showMoreContainer {
+	font-size: 12px;
+	float: right;
+	margin-top: 2px;
+}
+.showMoreContainer a {
+	text-decoration: none;
+}
 audio {
 	margin-top: 7px;
-	width: 318px;
+	width: 314px;
+	width: 100%;
 }
 .from {
 	display: inline;

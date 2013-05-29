@@ -1,18 +1,19 @@
-<input type="text" ng-model="filter.username" placeholder="Filter..."/>
-
 <div ng-controller="EventCtrl"></div>
 
-<div ng-controller="ShowCtrl" id="rec_{{rec.user_id}}" class="recordingDiv" style="background-color:{{rec.username|userColor}}" ng-repeat="rec in recordingList | filter:filter.username">
-	<p class="from"><a class="username" ng-controller="ReplyCtrl" ng-click="replyTo(rec.username)">{{rec.username}}</a> {{rec.user_id}}</p>
-	<span ng-click="dropDownRecs(rec.user_id)">fold</span>
-	<a href="./#/show/{{rec.user_id}}">show all</a>
-	<span class="remove">
+<div id="recListInnerContainer">
+	<div ng-controller="ShowCtrl" id="rec_{{rec.user_id}}" class="recordingDiv" style="background-color:{{rec.username|userColor}}" ng-repeat="rec in recordingList | filter:filter.username">
+		<p class="from"><a class="username" ng-controller="ReplyCtrl" ng-click="replyTo(rec.username)">{{rec.username}}</a></p>
+		<span class="showMoreContainer">
+			<a href=""><span ng-click="dropDownRecs(rec.user_id)">latest &darr;</span></a>
+			<a href="./#/show/{{rec.user_id}}">all &rarr;</a>
+		</span>
 		<span class="recListHasNewRecordings"><img ng-src="./content/img/ajax-loader-1.gif"></span>
-	</span>
 
 
-	<div>
-		<div ng-include src="templateRecordings.url"></div>
+		<div>
+			<div ng-include src="templateRecordings.url"></div>
+		</div>
+
 	</div>
 
 </div>

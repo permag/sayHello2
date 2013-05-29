@@ -29,6 +29,7 @@ class RecordingsModel {
 			$tmp = array();
 			$tmp['user_id'] = $r['user_id'];
 			$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			$tmp['rec_count'] = $r['rec_count'];
 			array_push($recordingList, $tmp);
 		}
 		return $recordingList;

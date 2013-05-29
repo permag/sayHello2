@@ -86,23 +86,35 @@ class UserModel {
 	}
 
 	public function registerUserThirdParty($thirdPartyType, $thirdPartyId, $username) {
-		// check username again just in case
-		if ($this->isUsernameAvailable($username)) {
-			// ok, register.
-			$stmt = $this->_db->insert("INSERT INTO user (third_party_type, third_party_id, username) 
-										VALUES (:third_party_type, :third_party_id, :username)", 
-										array(':third_party_type' => $thirdPartyType,
-											  ':third_party_id' => $thirdPartyId,
-											  ':username' => $username));
 
-			if ($stmt > 0) {
-				return true;
+		// first check username not registered on user (if logged in to registerusername page multi browsers. malicious evil.)
+		$stmt = $this->_db->select("SELECT COUNT(*) 
+									FROM user 
+									WHERE third_party_type = :thirdPartyType
+									AND third_party_id = :thirdPartyId",
+									array(':thirdPartyType' => $thirdPartyType,
+										  ':thirdPartyId' => $thirdPartyId));
+
+		if ($stmt->fetchColumn() == 0) { // not registered a username before.
+			
+			// check username again just in case
+			if ($this->isUsernameAvailable($username)) {
+				// ok, register.
+				$stmt = $this->_db->insert("INSERT INTO user (third_party_type, third_party_id, username) 
+											VALUES (:third_party_type, :third_party_id, :username)", 
+											array(':third_party_type' => $thirdPartyType,
+												  ':third_party_id' => $thirdPartyId,
+												  ':username' => $username));
+
+				if ($stmt > 0) {
+					return true;
+				} else {
+					return null;
+				}
+
 			} else {
-				return null;
+				return false;
 			}
-
-		} else {
-			return false;
 		}
 	}
 
