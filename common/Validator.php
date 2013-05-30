@@ -38,7 +38,7 @@
     		}
             
             public function ValidateUsername($username) {
-    			if (preg_match('/^[a-zA-Z0-9]{5,18}$/', $username)) {
+    			if (preg_match('/^[a-zA-Z0-9]{5,11}$/', $username)) {
     				return true;
     			} else {
     				$this->errorNumber = self::WRONG_USERNAME_FORMAT;

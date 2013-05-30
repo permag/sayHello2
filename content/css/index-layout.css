@@ -285,11 +285,15 @@ h1#logo, h1#logo a {
 	-moz-border-radius: 9px;
 	border-radius: 9px;
 }
+.recordingListDateTime {
+	font-size: 8px;
+	margin: 0 3px 4px 0;
+}
 .recListHasNewRecordings {
 	font-size: 11px;
 	font-weight: bold;
 	float: right;
-	margin: 2px 6px 0 6px;
+	margin: 3px 6px 0 6px;
 }
 .recordingDiv {
 	padding: 4px;
@@ -335,10 +339,10 @@ h1#logo, h1#logo a {
 }
 .showMoreContainer a {
 	text-decoration: none;
+	font-size: 11px;
 }
 audio {
 	margin-top: 7px;
-	width: 314px;
 	width: 100%;
 }
 .from {
@@ -347,6 +351,7 @@ audio {
 .username {
 	cursor: pointer;
 	color: #96370a;
+	font-size: 12px;
 }
 /* from session username */
 #username {

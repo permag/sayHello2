@@ -3,10 +3,11 @@
 <div id="recListInnerContainer">
 	<div ng-controller="ShowCtrl" id="rec_{{rec.user_id}}" class="recordingDiv" style="background-color:{{rec.username|userColor}}" ng-repeat="rec in recordingList | filter:filter.username">
 		<p class="from"><a class="username" ng-controller="ReplyCtrl" ng-click="replyTo(rec.username)">{{rec.username}}</a></p>
-		<span class="showMoreContainer">
+		<div class="showMoreContainer">
+			<span class="recordingListDateTime">{{rec.date_time|fromNow}}</span>
 			<a href=""><span ng-click="dropDownRecs(rec.user_id)">latest &darr;</span></a>
 			<a href="./#/show/{{rec.user_id}}">all &rarr;</a>
-		</span>
+		</div>
 		<span class="recListHasNewRecordings"><img ng-src="./content/img/ajax-loader-1.gif"></span>
 
 

@@ -15,6 +15,20 @@ class RecordingsModel {
 		$recordingList = array();
 
 		$stmt = $this->_db->select("SELECT DISTINCT user.user_id, user.username
+									,(SELECT recording.date_time
+										FROM recording 
+										WHERE recording.to_user_id = user.user_id
+										AND recording.owner_user_id = :activeUserId
+										OR recording.owner_user_id = user.user_id
+										AND recording.to_user_id = :activeUserId
+										ORDER BY recording.date_time DESC
+										LIMIT 1) AS date_time
+									,(SELECT COUNT(recording.date_time)
+										FROM recording 
+										WHERE recording.to_user_id = user.user_id
+										AND recording.owner_user_id = :activeUserId
+										OR recording.owner_user_id = user.user_id
+										AND recording.to_user_id = :activeUserId) AS rec_count
 									FROM user
 									INNER JOIN recording
 									ON user.user_id = recording.owner_user_id OR user.user_id = recording.to_user_id
@@ -29,6 +43,7 @@ class RecordingsModel {
 			$tmp = array();
 			$tmp['user_id'] = $r['user_id'];
 			$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
 			$tmp['rec_count'] = $r['rec_count'];
 			array_push($recordingList, $tmp);
 		}

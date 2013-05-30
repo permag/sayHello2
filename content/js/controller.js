@@ -165,7 +165,7 @@ controllers.ReplyCtrl = function($scope) {
 	};
 };
 
-controllers.EventCtrl = function($scope, eventFactory, $compile, $filter, newRecordingListFactory, recordingsFactory) {
+controllers.EventCtrl = function($scope, eventFactory) {
 	getUserIdsWithNewRecordings();
 	if (sayHello.checkForNewInterval == null) {
 		newRecs();

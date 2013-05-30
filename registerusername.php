@@ -25,7 +25,7 @@ if (isset($_SESSION['active_user_id'])) {
 			<h1>First...</h1>
 			<h2>Choose a username</h2>
 			<div>
-				<p id="regText">a-z A-Z 0-9. Min 5, max 18 characters.</p>
+				<p id="regText">a-z A-Z 0-9. Min 5, max 11 characters.</p>
 				<input type="text" id="registerUsername" />
 				<button id="registerSubmit" disabled="disabled">Ok!</button> 
 				<div id="registerInfo"></div>
