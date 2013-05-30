@@ -75,15 +75,22 @@ $(function(){
 	            data: {term: request.term},
 	            dataType: "json",
 	            success: function(data) {
-	                response($.map(data, function(member) {
+	                response($.map(data, function(user) {
 	                    return {
-	                        value: member.username
+	                        value: user.username,
+	                        image: user.image
 	                    }
 	                }));
 	            }
 	        });
 	    }
-	});
+	}).data('autocomplete')._renderItem = function(ul, item) {
+        return $('<li></li>')
+            .data('item.autocomplete', item)
+            .append('<a><img src="' + item.image + '" class="ajaxSearchImage" /><span class="ajaxSearchUsername">' + item.value + '</span></a>')
+            .appendTo(ul);
+    };
+
 	
 	// confirm delete
 	function confirmDelete(message) {

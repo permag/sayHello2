@@ -24,6 +24,8 @@ $db = null;
 		<title>sayHello.</title>
 	</head>
 	<body ng-app="sayHello" ng-controller="AppCtrl">
+		<div ng-controller="EventCtrl"></div>
+
 
 		<div id="fb-root"></div>
 
@@ -99,7 +101,7 @@ $db = null;
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
 		<!-- <script src="http://code.angularjs.org/1.0.6/angular-resource.min.js"></script> -->
 		<script src="content/js/moment.js"></script>
-		<script src="content/js/controller.js"></script>
+		<script src="content/js/app.js"></script>
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 		<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 

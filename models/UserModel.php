@@ -166,13 +166,19 @@ class UserModel {
 		$usernames = array();
 
 		// get username suggestions
-		$stmt = $this->_db->select("SELECT username FROM user WHERE username LIKE :username LIMIT 27", 
+		$stmt = $this->_db->select("SELECT username, third_party_type, third_party_id
+									FROM user WHERE username LIKE :username LIMIT 27", 
 									array(':username' => '%'.$searchTerm.'%'));
 		
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 		while ($r = $stmt->fetch()) {
-			array_push($usernames, $r);
+			$tmp = array();
+			$tmp['username'] = $r['username'];
+			if ($r['third_party_type'] == 1) {
+				$tmp['image'] = 'https://graph.facebook.com/'.$r['third_party_id'].'/picture?type=square';
+			}
+			array_push($usernames, $tmp);
 		}
 		return $usernames;
 	}

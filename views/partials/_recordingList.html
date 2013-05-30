@@ -1,7 +1,5 @@
 <div id="newRecFromNewUser"></div>
 
-<div ng-controller="EventCtrl"></div>
-
 <div id="recListInnerContainer">
 	<div ng-controller="ShowCtrl" id="rec_{{rec.user_id}}" class="recordingDiv" style="background-color:{{rec.username|userColor}}" ng-repeat="rec in recordingList | filter:filter.username">
 		<p class="from"><a class="username" ng-controller="ReplyCtrl" ng-click="replyTo(rec.username)">{{rec.username}}</a></p>
@@ -10,7 +8,7 @@
 			<a href=""><span ng-click="dropDownRecs(rec.user_id)">latest &darr;</span></a>
 			<a href="./#/show/{{rec.user_id}}" title="{{rec.rec_count}}">all &rarr;</a>
 		</div>
-		<span class="recListHasNewRecordings"><img ng-src="./content/img/ajax-loader-1.gif"></span>
+		<span class="recListHasNewRecordings">{{rec.new|markAsNewList}}</span>
 
 
 		<div ng-include src="templateRecordings.url" class="dropDownRecordingsTemplate"></div>
