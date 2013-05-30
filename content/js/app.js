@@ -180,7 +180,10 @@ controllers.ReplyCtrl = function($scope) {
 };
 
 controllers.EventCtrl = function($scope, $location, eventFactory) {
-	getUserIdsWithNewRecordings();
+	setTimeout(function(){
+		getUserIdsWithNewRecordings();
+	},3000);
+	
 	if (sayHello.checkForNewInterval == null) {
 		newRecs();
 	} else {
