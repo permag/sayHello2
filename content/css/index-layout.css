@@ -317,7 +317,7 @@ h1#logo, h1#logo a {
 .recordings li {
 	background: rgba(0, 0, 0, 0.2);
 	padding: 3px;
-	margin-bottom: 7px;
+	margin-bottom: 9px;
 	border: 1px solid #919191;
 }
 .recordingFromBar {

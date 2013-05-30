@@ -183,8 +183,10 @@ controllers.EventCtrl = function($scope, $location, eventFactory) {
 		eventFactory.newRecordingsCount().success(function(data) {
 			if (parseInt(data) > 0) {
 				$('#topBarCountNewRecs').html(data).show();
+				document.title = 'sayHello. ('+data+')';
 			} else {
 				$('#topBarCountNewRecs').empty().hide();
+				document.title = 'sayHello.';
 			}
 		});
 	}
@@ -213,10 +215,10 @@ controllers.EventCtrl = function($scope, $location, eventFactory) {
 					}
 				});
 
-				if (elemLoaded == false) {
-					getUserIdsWithNewRecordings();
-					return false;
-				}
+				// if (elemLoaded == false) {
+				// 	getUserIdsWithNewRecordings();
+				// 	return false;
+				// }
 				if (newIds.length > 0) { // check if new userId is not in current list
 					$('#newRecFromNewUser').empty();
 					var checkNew = false;
@@ -235,5 +237,6 @@ controllers.EventCtrl = function($scope, $location, eventFactory) {
 };
 
 sayHello.controller(controllers);
+
 
 

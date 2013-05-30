@@ -45,7 +45,7 @@ $db = null;
 				<div id="sideMenu">
 					<img id="profilePhoto" src="<?php echo $user->profilePhotoUrl; ?>">
 					<p id="usernameBox"><?php echo $user->username; ?></p>
-					<p><a href="./#/show/<?php echo $user->userId; ?>">my memos</a></p>
+					<p><a href="./#/show/<?php echo $user->userId; ?>">mono</a></p>
 				</div>
 			</div>
 
@@ -56,7 +56,7 @@ $db = null;
 						<input id="filterInput" type="text" ng-model="filter.username" placeholder="Filter..."/>
 					</div>
 				</div>
-				
+
 
 				<div id="recordingList">
 
