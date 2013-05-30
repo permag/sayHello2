@@ -321,15 +321,20 @@ h1#logo, h1#logo a {
 	margin-bottom: 9px;
 	border: 1px solid #919191;
 }
-.recordingFromBar {
-	float: left;
-	font-size: 12px;
-	margin: 1px 0 3px 0;
+.recordings .from img {
+	width: 23px;
+	height: 23px
 }
+.recordingDateTime {
+	font-size: 8px;
+	margin: 0 3px 4px 0;
+}
+
 .newRecordingMark {
 	float: right;
 	font-size: 10px;
 	font-weight: bold;
+	margin-right: 6px;
 }
 .newRecording {
 	background: #cb8525;
@@ -361,10 +366,15 @@ audio {
 .from {
 	display: inline;
 }
+.from img {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
 .username {
 	cursor: pointer;
 	color: #96370a;
-	font-size: 12px;
+	font-size: 11px;
 }
 /* from session username */
 #username {
@@ -385,14 +395,17 @@ audio {
 	color: black;
 	text-decoration: none;
 }
-.deleteRecInbox, .deleteRecOutbox { /* x post button */
+.deleteRec { 
 	border: 1px solid gray;
 	background: #dcdcdc;
-	font-size: 10px;
+	font-size: 8px;
 	text-align: center;
-	width: 10px;
+	width: 11px;
+	height: 11px;
 	display: block;
 	background: rgba(0,0,0,0.1);
+	float: right;
+	cursor: pointer;
 
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;

@@ -14,7 +14,7 @@ class RecordingsModel {
 	public function getRecordingList($activeUserId) {
 		$recordingList = array();
 
-		$stmt = $this->_db->select("SELECT DISTINCT user.user_id, user.username
+		$stmt = $this->_db->select("SELECT DISTINCT user.user_id, user.username, user.third_party_id, user.third_party_type
 									,(SELECT recording.date_time
 										FROM recording 
 										WHERE recording.to_user_id = user.user_id
@@ -52,6 +52,9 @@ class RecordingsModel {
 			$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
 			$tmp['rec_count'] = $r['rec_count'];
 			$tmp['new'] = $r['new'];
+			if ($r['third_party_type'] == 1) {
+				$tmp['image'] = 'https://graph.facebook.com/'.$r['third_party_id'].'/picture?type=square';
+			}
 			array_push($recordingList, $tmp);
 		}
 		return $recordingList;
@@ -85,7 +88,7 @@ class RecordingsModel {
 	public function getRecordings($activeUserId, $userIdToShowRecordingsFor, $start, $take) {
 		$recordings = array();
 
-		$stmt = $this->_db->select("SELECT user.user_id, user.username, 
+		$stmt = $this->_db->select("SELECT user.user_id, user.username, user.third_party_id, user.third_party_type,
 										   recording.recording_id, recording.filename, recording.date_time, 
 										   recording.to_user_id, recording.owner_user_id, recording.new
 									FROM user
@@ -111,7 +114,9 @@ class RecordingsModel {
 			$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
 			$tmp['to_user_id'] = $r['to_user_id'];
 			$tmp['owner_user_id'] = $r['owner_user_id'];
-			$tmp['new'] = $r['new'];
+			if ($r['third_party_type'] == 1) {
+				$tmp['image'] = 'https://graph.facebook.com/'.$r['third_party_id'].'/picture?type=square';
+			}
 
 			if ($r['new'] == 1 && $r['to_user_id'] == $activeUserId) { // new to you, from friend
 				$tmp['new'] = 'new';

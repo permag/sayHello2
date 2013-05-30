@@ -10,26 +10,26 @@ $(function(){
 	   }
 	});
 
-	// new recordings marking
-	$('.newRecording').slideDown('slow');
-	// remove recordings marking on click on audio player
-	$('.newRecording').find('audio').click(function(e){
-		$(this).parent().parent().removeClass('newRecording').addClass('newRecordingClicked');
-	});
+	// // new recordings marking
+	// $('.newRecording').slideDown('slow');
+	// // remove recordings marking on click on audio player
+	// $('.newRecording').find('audio').click(function(e){
+	// 	$(this).parent().parent().removeClass('newRecording').addClass('newRecordingClicked');
+	// });
 
-	// error messages
-	setTimeout(function(){
-		if ($('.errorMessages').html() != '') {
-			$('.errorMessages').slideDown('slow');
-		}
-	},9);
-	setTimeout(function(){
-		$('.errorMessages').slideUp('slow');
-	},3999);
-	$('.errorMessages').click(function(e){
-		$(this).slideUp('slow');
-		e.preventDefault();
-	});
+	// // error messages
+	// setTimeout(function(){
+	// 	if ($('.errorMessages').html() != '') {
+	// 		$('.errorMessages').slideDown('slow');
+	// 	}
+	// },9);
+	// setTimeout(function(){
+	// 	$('.errorMessages').slideUp('slow');
+	// },3999);
+	// $('.errorMessages').click(function(e){
+	// 	$(this).slideUp('slow');
+	// 	e.preventDefault();
+	// });
 
 	// follow scroll
 	if (!($.browser.webkit)) {
@@ -38,12 +38,6 @@ $(function(){
   		$('#topBar').css('position', 'static');
   		$('#container').css('margin-top', '0');
   	}
-
-	// from username to send input
-	$('.username').click(function(e){
-		$('#shareToUsername').val($(this).html());
-		e.preventDefault();
-	});
 
 	// username field
 	$('#shareToUsername').focus(function(e){
@@ -54,14 +48,8 @@ $(function(){
 		}
 	});
 	// confirm delete click event
-	$('.deleteRecInbox').click(function(e){
-		if (confirmDelete("Are you sure you wish to delete this recording?")){
-			return;
-		}
-		e.preventDefault();
-	});
-	$('.deleteRecOutbox').click(function(e){
-		if (confirmDelete("Are you sure you wish to delete this recording?\n\nThe recording will also be deleted from the inbox of the receiver.")){
+	$('.deleteRec').click(function(e){
+		if (confirmDelete("Are you sure you wish to delete this recording? \n\nIt will be removed from both users conversations.")){
 			return;
 		}
 		e.preventDefault();
