@@ -183,7 +183,7 @@ controllers.EventCtrl = function($scope, $location, eventFactory) {
 	setTimeout(function(){
 		getUserIdsWithNewRecordings();
 	},3000);
-	
+
 	if (sayHello.checkForNewInterval == null) {
 		newRecs();
 	} else {
@@ -229,6 +229,9 @@ controllers.EventCtrl = function($scope, $location, eventFactory) {
 						elemLoaded = true;
 						elemIds.push(item.owner_user_id);
 						$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
+						if ($('.dropDownRecordingsTemplate').html() == '') {
+							$('#rec_' + item.owner_user_id).prependTo($('#rec_' + item.owner_user_id).parent());
+						}
 					}
 				});
 
