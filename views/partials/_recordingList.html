@@ -11,7 +11,7 @@
 			<a href=""><span ng-click="dropDownRecs(rec.user_id)">latest &darr;</span></a>
 			<a href="./#/show/{{rec.user_id}}" title="{{rec.rec_count}}">all &rarr;</a>
 		</div>
-		<span class="recListHasNewRecordings">{{rec.new|markAsNewList}}</span>
+		<span class="recListHasNewRecordings">{{rec.new|markAsNew}}</span>
 
 
 		<div ng-include src="templateRecordings.url" class="dropDownRecordingsTemplate"></div>

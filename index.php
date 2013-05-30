@@ -18,13 +18,13 @@ $db = null;
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="content/css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="content/css/index-layout.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/index-layout.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
 		<title>sayHello.</title>
 	</head>
 	<body ng-app="sayHello" ng-controller="AppCtrl">
-		<div ng-controller="EventCtrl"></div>
+		<div ng-controller="NotificationCtrl"></div>
 
 
 		<div id="fb-root"></div>
@@ -100,16 +100,19 @@ $db = null;
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
 		<!-- <script src="http://code.angularjs.org/1.0.6/angular-resource.min.js"></script> -->
-		<script src="content/js/moment.js"></script>
-		<script src="content/js/app.js"></script>
+		<script src="./js/app.js"></script>
+		<script src="./js/controllers.js"></script>
+		<script src="./js/factories.js"></script>
+		<script src="./js/filters.js"></script>
+		<script src="./js/moment.js"></script>
+
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 		<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-
-		<script src="./content/js/fb_login.js"></script>
-		<script src="./content/js/rec/jRecorder.js"></script>
-		<script src="./content/js/rec/init.js"></script>
-		<script src="./content/js/rec/recInit.js"></script>
-		<script src="./content/js/rec/recEvent.js"></script>
+		<script src="./js/fb_login.js"></script>
+		<script src="./js/rec/jRecorder.js"></script>
+		<script src="./js/rec/init.js"></script>
+		<script src="./js/rec/recInit.js"></script>
+		<script src="./js/rec/recEvent.js"></script>
 
 	</body>
 </html>

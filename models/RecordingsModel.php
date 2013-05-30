@@ -51,7 +51,7 @@ class RecordingsModel {
 			$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
 			$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
 			$tmp['rec_count'] = $r['rec_count'];
-			$tmp['new'] = $r['new'];
+			$tmp['new'] = ($r['new'] == 1) ? 'new' : null;
 			if ($r['third_party_type'] == 1) {
 				$tmp['image'] = 'https://graph.facebook.com/'.$r['third_party_id'].'/picture?type=square';
 			}

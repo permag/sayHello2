@@ -1,5 +1,5 @@
 <?php 
-require_once('./thirdparty//fb/src/facebook.php');
+require_once('./thirdparty/fb/src/facebook.php');
 require_once('./thirdparty/fb/fb.php');
 require_once('./database/DBConfig.php');
 require_once('./database/Database.php');
@@ -22,8 +22,8 @@ if ($user) {
 <!doctype html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
 	<head>
-		<link rel="stylesheet" type="text/css" href="content/css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="content/css/login-layout.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/login-layout.css" />
 		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 		<title>sayHello</title>
@@ -44,7 +44,7 @@ if ($user) {
 		</div>
 
 		<!-- JavaScript files -->
-		<script src="./content/js/fb_login.js"></script>
+		<script src="./js/fb_login.js"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 	</body>
