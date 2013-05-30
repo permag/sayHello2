@@ -277,6 +277,10 @@ h1#logo, h1#logo a {
 	border-radius: 9px;
 	outline: 0;
 }
+#newRecFromNewUser {
+	font-size: 12px;
+	margin: 2px 0 7px 7px;
+}
 #recListInnerContainer {
 	
 }
@@ -304,6 +308,9 @@ h1#logo, h1#logo a {
 	background: #e0dbdf;
 	border: 1px solid #d3d3d3;
 }
+.recordingDiv:hover {
+	border: 1px solid #a2a2a2;
+}
 .recordings {
 	margin-top: 7px;
 }
@@ -311,7 +318,7 @@ h1#logo, h1#logo a {
 	background: rgba(0, 0, 0, 0.2);
 	padding: 3px;
 	margin-bottom: 7px;
-	border: 1px solid #bebebe;
+	border: 1px solid #919191;
 }
 .recordingFromBar {
 	float: left;

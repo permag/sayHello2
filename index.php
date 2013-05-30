@@ -56,7 +56,7 @@ $db = null;
 						<input id="filterInput" type="text" ng-model="filter.username" placeholder="Filter..."/>
 					</div>
 				</div>
-
+				
 
 				<div id="recordingList">
 

@@ -34,7 +34,7 @@ class RecordingsModel {
 									ON user.user_id = recording.owner_user_id OR user.user_id = recording.to_user_id
 									WHERE recording.owner_user_id = :activeUserId
 									OR recording.to_user_id = :activeUserId
-									ORDER BY recording.date_time DESC",
+									ORDER BY date_time DESC",
 									array(':activeUserId' => $activeUserId));
 
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);

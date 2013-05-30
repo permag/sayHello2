@@ -165,7 +165,7 @@ controllers.ReplyCtrl = function($scope) {
 	};
 };
 
-controllers.EventCtrl = function($scope, eventFactory) {
+controllers.EventCtrl = function($scope, $location, eventFactory) {
 	getUserIdsWithNewRecordings();
 	if (sayHello.checkForNewInterval == null) {
 		newRecs();
@@ -190,23 +190,50 @@ controllers.EventCtrl = function($scope, eventFactory) {
 	}
 
 	function getUserIdsWithNewRecordings() {
+		if ($location.path().substring(0,5) == '/show') {
+			return false; // exit if location is "/show/..."
+		}
+
 		$.ajax({
 			url: './ajax/getUserIdsWithNewRecordings.php',
 			type: 'GET',
 			dataType: 'JSON',
 			success: function(data) {
 				$('.recordingDiv').find('.recListHasNewRecordings').empty();
-				$.each(data, function(i, item) {
-					$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
-					//$('#rec_' + item.owner_user_id).prependTo($('#recListInnerContainer')).fadeIn('slow');
+				var newIds = [];
+				var elemIds = [];
+				var elemLoaded = false;
+
+				$.each(data, function(i, item) { 
+					newIds.push(item.owner_user_id); // all userIds that sent "new" recs
+					if ($('#rec_' + item.owner_user_id).length == 1) {
+						elemLoaded = true;
+						elemIds.push(item.owner_user_id);
+						$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
+					}
 				});
+
+				if (elemLoaded == false) {
+					getUserIdsWithNewRecordings();
+					return false;
+				}
+				if (newIds.length > 0) { // check if new userId is not in current list
+					$('#newRecFromNewUser').empty();
+					var checkNew = false;
+					$.each(newIds, function(i, item) {
+						if (!~$.inArray(item, elemIds)) {
+							checkNew = true;
+						}
+					});
+					if (checkNew) {
+						$('#newRecFromNewUser').html('Incoming: new conversation! <a href="#">refresh</a>').show('slow');
+					}
+				}
 			}
 		});
 	}
 };
 
 sayHello.controller(controllers);
-
-
 
 
