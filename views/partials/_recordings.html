@@ -1,7 +1,7 @@
 <!-- recordings -->
 <div class="recordings">
 	<ul>
-		<li ng-repeat="recs in recordings" id="rec_id_{{recs.recording_id}}">
+		<li ng-repeat="recs in recordings | filter:filter.username" id="rec_id_{{recs.recording_id}}" style="background-color:{{recs.username|userColor}};">
 			<p class="recordingFromBar" title="{{recs.date_time}}">{{recs.username}}, {{recs.date_time|fromNow}}</p><p class="newRecordingMark">{{recs.new|markAsNew}}</p>
 			<audio ng-src="./recs/{{recs.filename}}" controls class="{{recs.new|removeNewMark}}" ng-click="removeNewMark(recs.recording_id)"></audio>
 		</li>

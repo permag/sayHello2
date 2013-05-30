@@ -277,6 +277,9 @@ h1#logo, h1#logo a {
 	border-radius: 9px;
 	outline: 0;
 }
+#recListInnerContainer {
+	
+}
 #recordingList {
 	padding: 7px;
 	background: white;
@@ -298,7 +301,8 @@ h1#logo, h1#logo a {
 .recordingDiv {
 	padding: 4px;
 	margin: 5px 5px 11px 5px;
-	background: #e0dbdf
+	background: #e0dbdf;
+	border: 1px solid #d3d3d3;
 }
 .recordings {
 	margin-top: 7px;
@@ -306,7 +310,8 @@ h1#logo, h1#logo a {
 .recordings li {
 	background: rgba(0, 0, 0, 0.2);
 	padding: 3px;
-	margin-bottom: 5px;
+	margin-bottom: 7px;
+	border: 1px solid #bebebe;
 }
 .recordingFromBar {
 	float: left;
