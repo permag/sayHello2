@@ -4,7 +4,7 @@
 		<li ng-repeat="recs in recordings | filter:filter.username" id="rec_id_{{recs.recording_id}}" style="background-color:{{recs.username|userColor}};">
 
 			<div class="from" ng-controller="ReplyCtrl">
-				<img src="{{recs.image}}" ng-click="replyTo(rec.username)" alt="{{recs.username}}" />
+				<img ng-src="{{recs.image}}" ng-click="replyTo(rec.username)" alt="{{recs.username}}" />
 				<a class="username" ng-click="replyTo(recs.username)">{{recs.username}}</a>
 				<span class="recordingDateTime" title="{{recs.date_time}}">{{recs.date_time|fromNow}}</span>
 			</div>

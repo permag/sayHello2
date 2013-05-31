@@ -3,7 +3,7 @@
 <div id="recListInnerContainer">
 	<div ng-controller="ShowCtrl" id="rec_{{rec.user_id}}" class="recordingDiv" style="background-color:{{rec.username|userColor}}" ng-repeat="rec in recordingList | filter:filter.username">
 		<div class="from" ng-controller="ReplyCtrl">
-			<img src="{{rec.image}}" ng-click="replyTo(rec.username)" alt="{{rec.username}}" />
+			<img ng-src="{{rec.image}}" ng-click="replyTo(rec.username)" alt="{{rec.username}}" />
 			<a class="username" ng-click="replyTo(rec.username)">{{rec.username}}</a>
 		</div>
 		<div class="showMoreContainer">
