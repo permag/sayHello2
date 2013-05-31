@@ -122,28 +122,35 @@ controllers.NotificationCtrl = function($scope, $location, $timeout, notificatio
 			type: 'GET',
 			dataType: 'JSON',
 			success: function(data) {
-				$timeout(function(){
-					$('.recordingDiv').find('.recListHasNewRecordings').empty();
-					var newIds = [];
-					var elemIds = [];
+				$('.recordingDiv').find('.recListHasNewRecordings').empty();
+				var newIds = [];
 
-					$.each(data, function(i, item) { 
-						newIds.push(item.owner_user_id); // all userIds that sent "new" recs
-						if ($('#rec_' + item.owner_user_id).length == 1) {
-							elemIds.push(item.owner_user_id);
-							$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
-						}
-					});
+				$.each(data, function(i, item) { 
+					newIds.push(item.owner_user_id); // all userIds that sent "new" recs
+					if ($('#rec_' + item.owner_user_id).length == 1) {
+						$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
+					}
+				});
 
-					incomingConversation(newIds, elemIds);
-				}, 1000, false);
+				if (newIds.length > 0) {
+					$timeout(function() {
+						incomingConversation(newIds)
+					}, 4000);
+				}
 			}
 
 		});
 	}
 
-	function incomingConversation(newIds, elemIds) {
+	function incomingConversation(newIds) {
 		if (newIds.length > 0) { // check if new userId is not in current list
+			var elemIds = [];
+			$.each(newIds, function(i, id) {
+				if ($('#rec_' + id).length == 1) {
+					elemIds.push(id);
+				}
+			});
+
 			$('#newRecFromNewUser').empty();
 			var checkNew = false;
 			$.each(newIds, function(i, item) {
