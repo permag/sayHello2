@@ -81,36 +81,60 @@ controllers.ReplyCtrl = function($scope) {
 /**
  * Notifications
  */
-controllers.NotificationCtrl = function($scope, $location, $timeout, notificationFactory) {
-	if (sayHello.checkForNewInterval == null) { // prevent multiple intervals
-		notificationBadge();
-	} else {
-		clearInterval(sayHello.checkForNewInterval);
-	}
+controllers.NotificationCtrl = function($scope, $location, $timeout) {
+	notificationLongPolling();
+
 	$scope.newRecordingList = [];
 
-	sayHello.checkForNewInterval = window.setInterval(function() {
-		notificationBadge();
-	}, 10000); // check for new recordings and auto update notification 
+	function notificationLongPolling() {
+		var number = null;
 
-	function notificationBadge() {
-		notificationFactory.newRecordingsCount().success(function(data) {
-			if (parseInt(data) > 0) {
-				$('#topBarCountNewRecs').html(data).show();
-				document.title = 'sayHello. ('+data+')';
-				sayHello.noticeBadgePrev = true;
-				newMarkOnRecordingList();
-				
-			} else {
-				$('#topBarCountNewRecs').empty().hide();
-				document.title = 'sayHello.';
-				if (sayHello.noticeBadgePrev) {
-					newMarkOnRecordingList();
+		$.ajax({
+			url: './ajax/checkForNewRecordings.php',
+			timeout: 200000,
+			cache: false,
+			success: function(data) {
+				//
+				number = data;
+				if (parseInt(number) > 0) {
+					console.log(number);
+					$timeout(function(){
+						notificationLongPolling();
+					}, 10000);
+				} else {
+					notificationLongPolling();
 				}
-				sayHello.noticeBadgePrev = false;
+				updateBadge(number);
+			},
+			error: function(e, jqXHR) {
+				if (jqXHR == 'timeout') {
+					notificationLongPolling();
+				}
 			}
+		
 		});
+		setTimeout(function(){
+			if (number == null) {
+				updateBadge(number);
+			}
+		},2000);
 	}
+
+	function updateBadge(number) {
+		if (number > 0) { // number of notifications to display
+			// update badge
+			$('#topBarCountNewRecs').html(number).show();
+			document.title = 'sayHello. ('+number+')';
+			newMarkOnRecordingList();
+		
+		} else { // null
+			// remove badge
+			$('#topBarCountNewRecs').empty().hide();
+			document.title = 'sayHello.';
+			newMarkOnRecordingList();
+		}
+	}
+
 
 	function newMarkOnRecordingList() {
 		if ($location.path().substring(0,5) == '/show') {
@@ -167,5 +191,4 @@ controllers.NotificationCtrl = function($scope, $location, $timeout, notificatio
 
 sayHello.controller(controllers);
 sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
-sayHello.checkForNewInterval = null;
-sayHello.noticeBadgePrev = false;
+
