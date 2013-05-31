@@ -44,7 +44,7 @@ if ($user) {
 		</div>
 
 		<!-- JavaScript files -->
-		<script src="./js/fb_login.js"></script>
+		<script src="./js/thirdparty/fb_login.js"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 	</body>

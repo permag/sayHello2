@@ -1,5 +1,3 @@
-sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
-sayHello.checkForNewInterval = null;
 
 var controllers = {};
 
@@ -83,36 +81,38 @@ controllers.ReplyCtrl = function($scope) {
 /**
  * Notifications
  */
-controllers.NotificationCtrl = function($scope, $location, notificationFactory) {
-	setTimeout(function(){
-		getUserIdsWithNewRecordings();
-	},3000);
-
-	if (sayHello.checkForNewInterval == null) {
-		newRecs();
+controllers.NotificationCtrl = function($scope, $location, $timeout, notificationFactory) {
+	if (sayHello.checkForNewInterval == null) { // prevent multiple intervals
+		notificationBadge();
 	} else {
 		clearInterval(sayHello.checkForNewInterval);
 	}
 	$scope.newRecordingList = [];
 
 	sayHello.checkForNewInterval = window.setInterval(function() {
-		newRecs();
-		getUserIdsWithNewRecordings();
+		notificationBadge();
 	}, 10000); // check for new recordings and auto update notification 
 
-	function newRecs() {
+	function notificationBadge() {
 		notificationFactory.newRecordingsCount().success(function(data) {
 			if (parseInt(data) > 0) {
 				$('#topBarCountNewRecs').html(data).show();
 				document.title = 'sayHello. ('+data+')';
+				sayHello.noticeBadgePrev = true;
+				newMarkOnRecordingList();
+				
 			} else {
 				$('#topBarCountNewRecs').empty().hide();
 				document.title = 'sayHello.';
+				if (sayHello.noticeBadgePrev) {
+					newMarkOnRecordingList();
+				}
+				sayHello.noticeBadgePrev = false;
 			}
 		});
 	}
 
-	function getUserIdsWithNewRecordings() {
+	function newMarkOnRecordingList() {
 		if ($location.path().substring(0,5) == '/show') {
 			return false; // exit if location is "/show/..."
 		}
@@ -122,42 +122,43 @@ controllers.NotificationCtrl = function($scope, $location, notificationFactory) 
 			type: 'GET',
 			dataType: 'JSON',
 			success: function(data) {
-				$('.recordingDiv').find('.recListHasNewRecordings').empty();
-				var newIds = [];
-				var elemIds = [];
-				var elemLoaded = false;
+				$timeout(function(){
+					$('.recordingDiv').find('.recListHasNewRecordings').empty();
+					var newIds = [];
+					var elemIds = [];
 
-				$.each(data, function(i, item) { 
-					newIds.push(item.owner_user_id); // all userIds that sent "new" recs
-					if ($('#rec_' + item.owner_user_id).length == 1) {
-						elemLoaded = true;
-						elemIds.push(item.owner_user_id);
-						$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
-						// if ($('.dropDownRecordingsTemplate').html() == '') {
-						// 	$('#rec_' + item.owner_user_id).prependTo($('#rec_' + item.owner_user_id).parent());
-						// }
-					}
-				});
-
-				// if (elemLoaded == false) {
-				// 	getUserIdsWithNewRecordings();
-				// 	return false;
-				// }
-				if (newIds.length > 0) { // check if new userId is not in current list
-					$('#newRecFromNewUser').empty();
-					var checkNew = false;
-					$.each(newIds, function(i, item) {
-						if (!~$.inArray(item, elemIds)) {
-							checkNew = true;
+					$.each(data, function(i, item) { 
+						newIds.push(item.owner_user_id); // all userIds that sent "new" recs
+						if ($('#rec_' + item.owner_user_id).length == 1) {
+							elemIds.push(item.owner_user_id);
+							$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
 						}
 					});
-					if (checkNew) {
-						$('#newRecFromNewUser').html('Incoming: new conversation! <a href="#">refresh</a>').show('slow');
-					}
-				}
+
+					incomingConversation(newIds, elemIds);
+				}, 1000, false);
 			}
+
 		});
+	}
+
+	function incomingConversation(newIds, elemIds) {
+		if (newIds.length > 0) { // check if new userId is not in current list
+			$('#newRecFromNewUser').empty();
+			var checkNew = false;
+			$.each(newIds, function(i, item) {
+				if (!~$.inArray(item, elemIds)) {
+					checkNew = true;
+				}
+			});
+			if (checkNew) {
+				$('#newRecFromNewUser').html('Incoming: new conversation! <a href="#">refresh</a>').show('slow');
+			}
+		}
 	}
 };
 
 sayHello.controller(controllers);
+sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
+sayHello.checkForNewInterval = null;
+sayHello.noticeBadgePrev = false;

@@ -104,11 +104,11 @@ $db = null;
 		<script src="./js/controllers.js"></script>
 		<script src="./js/factories.js"></script>
 		<script src="./js/filters.js"></script>
-		<script src="./js/moment.js"></script>
+		<script src="./js/lib/moment.js"></script>
 
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 		<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-		<script src="./js/fb_login.js"></script>
+		<script src="./js/thirdparty/fb_login.js"></script>
 		<script src="./js/rec/jRecorder.js"></script>
 		<script src="./js/rec/init.js"></script>
 		<script src="./js/rec/recInit.js"></script>
