@@ -29,7 +29,7 @@ class RecordCall {
 		$recModel = new RecordModel($db);
 		$recModel->setRecordingUploadStatus(false); // set a session to indicate recording began uploading
 
-		$ownerUserId = $_SESSION['active_user_id']; // test
+		$ownerUserId = $_SESSION['active_user_id']; 
 		$toUserId = $_SESSION['recording_to_userId'];
 		unset($_SESSION['recording_to_userId']);
 		
@@ -40,7 +40,7 @@ class RecordCall {
 
 		}
 
-		$recModel->setRecordingUploadStatus(true); 
+		$recModel->setRecordingUploadStatus(true); // all finished
 	}
 }
 
@@ -48,9 +48,4 @@ if (isset($_SESSION['active_user_id']) && isset($_SESSION['recording_to_userId']
 	$recordCall = new RecordCall();
 	$recordCall->init();
 }
-
-
-
-
-
 

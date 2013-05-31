@@ -11,6 +11,9 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 	function init() {
 		recordingListFactory.getRecordingList().success(function(data) {
 			$scope.recordingList = data;
+			if ($scope.recordingList.length == 0) {
+				$('#recordingList').html('<div id="noConversations">No conversations.</div>')
+			}
 		});
 	}
 };

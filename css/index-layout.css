@@ -294,6 +294,9 @@ h1#logo, h1#logo a {
 	-moz-border-radius: 9px;
 	border-radius: 9px;
 }
+#noConversations { /*no conversation yet*/
+	margin: 10px;
+}
 .recordingListDateTime {
 	font-size: 8px;
 	margin: 0 3px 4px 0;
