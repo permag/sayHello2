@@ -84,20 +84,18 @@ controllers.ReplyCtrl = function($scope) {
 controllers.NotificationCtrl = function($scope, $location, $timeout) {
 	notificationLongPolling();
 
-	$scope.newRecordingList = [];
 
 	function notificationLongPolling() {
 		var number = null;
 
 		$.ajax({
 			url: './ajax/checkForNewRecordings.php',
-			timeout: 200000,
+			timeout: 2000000,
 			cache: false,
 			success: function(data) {
 				//
 				number = data;
 				if (parseInt(number) > 0) {
-					console.log(number);
 					$timeout(function(){
 						notificationLongPolling();
 					}, 10000);
@@ -148,25 +146,24 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 			success: function(data) {
 				$('.recordingDiv').find('.recListHasNewRecordings').empty();
 				var newIds = [];
-
 				$.each(data, function(i, item) { 
 					newIds.push(item.owner_user_id); // all userIds that sent "new" recs
 					if ($('#rec_' + item.owner_user_id).length == 1) {
 						$('#rec_' + item.owner_user_id).find('.recListHasNewRecordings').html('new');
 					}
 				});
-
-				if (newIds.length > 0) {
-					$timeout(function() {
-						incomingConversation(newIds)
-					}, 4000);
-				}
+				$timeout(function() {
+					incomingConversation(newIds);
+				}, 3000);
 			}
 
 		});
 	}
 
 	function incomingConversation(newIds) {
+		if ($('#filterInput').val() != '') { // prevent this to run when filtering. (will show message even if no new.)
+			return false;
+		}
 		if (newIds.length > 0) { // check if new userId is not in current list
 			var elemIds = [];
 			$.each(newIds, function(i, id) {
@@ -175,7 +172,6 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 				}
 			});
 
-			$('#newRecFromNewUser').empty();
 			var checkNew = false;
 			$.each(newIds, function(i, item) {
 				if (!~$.inArray(item, elemIds)) {
@@ -184,6 +180,8 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 			});
 			if (checkNew) {
 				$('#newRecFromNewUser').html('Incoming: new conversation! <a href="#">refresh</a>').show('slow');
+			} else {
+				$('#newRecFromNewUser').empty();
 			}
 		}
 	}
