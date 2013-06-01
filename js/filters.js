@@ -5,7 +5,6 @@ sayHello.filter('fromNow', function() {
 	}
 });
 
-
 // filter: individual colors for users recordingList "folder"
 sayHello.filter('userColor', function() {
 	return function(username) {
@@ -27,7 +26,7 @@ sayHello.filter('markAsNew', function() {
 		} else if (value == 0 || value == '0') {
 			return null;
 		}
-	};
+	}
 });
 
 
@@ -39,5 +38,17 @@ sayHello.filter('removeNewMark', function() {
 		} else {
 			return null;
 		}
-	};
+	}
+});
+
+
+// filter: add float right class to active user in recordings
+sayHello.filter('activeUserToRight', function() {
+	return function(value) {
+		if (value == sayHello.activeUserId) {
+			return 'right';
+		} else {
+			return null;
+		}
+	}
 });

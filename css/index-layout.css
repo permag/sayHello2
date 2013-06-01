@@ -24,7 +24,8 @@ h3 a:active, h3 a:visited, h3 a:link, h3 a:hover {
 	text-decoration: none;
 }
 object, embed,
-#topBar {
+#topBar,
+audio {
 	outline: none !important;
 
 	-webkit-touch-callout: none;
@@ -287,7 +288,7 @@ h1#logo, h1#logo a {
 	
 }
 #recordingList {
-	padding: 3px;
+	padding: 3px 8px 1px 8px;
 	background: white;
 
 	-webkit-border-radius: 9px;
@@ -309,7 +310,7 @@ h1#logo, h1#logo a {
 }
 .recordingDiv {
 	padding: 4px;
-	margin: 5px 5px 11px 5px;
+	margin: 5px 0 11px 0;
 	background: #e0dbdf;
 	border: 1px solid #d3d3d3;
 }
@@ -318,16 +319,55 @@ h1#logo, h1#logo a {
 }
 .recordings {
 	margin-top: 7px;
+	overflow: auto;
 }
 .recordings li {
 	background: rgba(0, 0, 0, 0.2);
-	padding: 3px;
-	margin-bottom: 9px;
+	padding: 4px;
+	margin-bottom: 15px;
 	border: 1px solid #919191;
+	width: 200px;
+	min-height: 60px;
+	float: left;
+	background: #b4d4ff; 
+
+	-webkit-border-radius: 0 9px 9px 0;
+	-moz-border-radius: 0 9px 9px 0;
+	border-radius: 0 9px 9px 0;
 }
+/* user to the right in conversation - activeUser */
+.right {
+	float: right !important;
+	-webkit-border-radius: 9px 0 0 9px !important;
+	-moz-border-radius: 9px 0 0 9px !important;
+	border-radius: 9px 0 0 9px !important;
+
+	background: #ff9b3b !important;
+}
+.right .from img {
+	float: right;
+}
+.right .recordingDateTime {
+	float: right;
+	margin-top: 12px;
+	margin-right: 5px;
+}
+.right .username {
+	float: right;
+	margin-top: 11px;
+	margin-right: 3px;
+}
+.right .deleteRec {
+	float: left;
+}
+.right .newRecordingMark {
+	float: left;
+	margin-left: 5px;
+}
+/* --- */
 .recordings .from img {
 	width: 23px;
-	height: 23px
+	height: 23px;
 }
 .recordingDateTime {
 	font-size: 8px;
@@ -364,7 +404,7 @@ h1#logo, h1#logo a {
 	font-size: 11px;
 }
 audio {
-	margin-top: 7px;
+	margin-top: 9px;
 	width: 100%;
 }
 .from {

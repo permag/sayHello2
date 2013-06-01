@@ -62,7 +62,7 @@ $(function(){
 								}
 
 							});
-						},999);
+						},1500);
 
 						return true;
 					} else {

@@ -48,7 +48,8 @@ class RecordingsModel {
 		while ($r = $stmt->fetch()) {
 			$tmp = array();
 			$tmp['user_id'] = $r['user_id'];
-			$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			//$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			$tmp['username'] = $r['username'];
 			$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
 			$tmp['rec_count'] = $r['rec_count'];
 			$tmp['new'] = ($r['new'] == 1) ? 'new' : null;
@@ -98,7 +99,7 @@ class RecordingsModel {
 									AND recording.owner_user_id = :activeUserId
 									OR (recording.to_user_id = :activeUserId
 									AND recording.owner_user_id = :userIdToShowRecordingsFor)
-									ORDER BY recording.new DESC, recording.date_time DESC 
+									ORDER BY recording.date_time DESC 
 									LIMIT ".$start.", ".$take."",
 									array(':userIdToShowRecordingsFor' => $userIdToShowRecordingsFor,
 										   ':activeUserId' => $activeUserId));
@@ -108,7 +109,8 @@ class RecordingsModel {
 		while ($r = $stmt->fetch()) {
 			$tmp = array();
 			$tmp['user_id'] = $r['user_id'];
-			$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			//$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			$tmp['username'] = $r['username'];
 			$tmp['recording_id'] = $r['recording_id'];
 			$tmp['filename'] = $r['filename'];
 			$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
@@ -167,7 +169,8 @@ class RecordingsModel {
 		while ($r = $stmt->fetch()) {
 			$tmp = array();
 			$tmp['user_id'] = $r['user_id'];
-			$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			// $tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			$tmp['username'] = $r['username'];
 			array_push($recordingList, $tmp);
 		}
 		return $recordingList;

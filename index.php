@@ -114,5 +114,10 @@ $db = null;
 		<script src="./js/rec/recInit.js"></script>
 		<script src="./js/rec/recEvent.js"></script>
 
+		<script type="text/javascript">
+			$(function() { 
+				sayHello.activeUserId = "<?php echo $user->userId; ?>";
+			});
+		</script>
 	</body>
 </html>

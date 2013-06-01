@@ -51,7 +51,7 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 				data: {recording_id: recording_id},
 				type: 'POST',
 				success: function(data) {
-
+					// ...
 				}
 			});
 		}
@@ -93,7 +93,7 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 
 		$.ajax({
 			url: './ajax/checkForNewRecordings.php',
-			timeout: 2000000,
+			timeout: 40000,
 			cache: false,
 			success: function(data) {
 				//
