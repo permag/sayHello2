@@ -32,7 +32,7 @@ $db = null;
 			<div id="topBarWrap">
 				<div id="topBarLogo">sayHello.</div>
 				<div id="topBarRefresh">
-					<a ng-click="reloadView()">
+					<a href="#">
 						<img src="./content/img/reload.png">
 					</a>
 					<a href="#"><div id="topBarCountNewRecs"></div></a>
@@ -99,8 +99,8 @@ $db = null;
 			</div>
 
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script> -->
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
 		<!-- <script src="http://code.angularjs.org/1.0.6/angular-resource.min.js"></script> -->
 		<script src="./js/app.js"></script>
 		<script src="./js/controllers.js"></script>

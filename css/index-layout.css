@@ -365,6 +365,7 @@ h1#logo, h1#logo a {
 .right .newRecordingMark {
 	float: left;
 	margin-left: 5px;
+	text-align: left;
 }
 .recordingInsideWrapper {
 	position: relative;
@@ -392,6 +393,7 @@ h1#logo, h1#logo a {
 	margin-right: 6px;
 	height: 10px;
 	width: 50px;
+	text-align: right;
 }
 .newRecording {
 	background: #cb8525;
@@ -641,3 +643,44 @@ audio {
 	display: inline-block;
 }
 
+
+
+
+
+
+
+
+.custom-enter,
+.custom-leave,
+.custom-move {
+  -webkit-transition: 1s linear all;
+  -moz-transition: 1s linear all;
+  -o-transition: 1s linear all;
+  transition: 1s linear all;
+  position:relative;
+}
+
+.custom-enter {
+  left:-10px;
+  opacity:0;
+}
+.custom-enter.custom-enter-active {
+  left:0;
+  opacity:1;
+}
+
+.custom-leave {
+  left:0;
+  opacity:1;
+}
+.custom-leave.custom-leave-active {
+  left:-10px;
+  opacity:0;
+}
+
+.custom-move {
+  opacity:0.5;
+}
+.custom-move.custom-move-active {
+  opacity:1;
+}

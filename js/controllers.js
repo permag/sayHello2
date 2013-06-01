@@ -16,15 +16,6 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 			}
 		});
 	}
-
-	$scope.reloadView = function() {
-		if ($location.path().substring(0,5) == '/show') {
-			var path = $location.path();
-			$location.path('/show/11');
-			$location.path(path);
-		}
-	};
-
 };
 
 
@@ -33,10 +24,7 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
  */
 controllers.ShowCtrl = function($scope, $routeParams, $timeout, recordingsFactory) {
 	if ($routeParams.userId != null) {
-		//setInterval(function() {
-			init($routeParams.userId, 0, 150);
-			console.log('updated')
-		//},5000);
+		init($routeParams.userId, 0, 150);
 	}
 	$scope.recordings = [];
 
@@ -46,34 +34,57 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, recordingsFactor
 
 	// userId for which user has a conversation with, start offset, take limit
 	function init(userId, start, take) {
-		getNewRecordings();
+		sayHello.rec_number_counter = 0;
+
+		clearInterval(sayHello.getNewRecordingsInterval);
+
+		sayHello.getNewRecordingsInterval = setInterval(function() {
+			getNewRecordings();
+		},10000);
+
 		var recDiv = $('#rec_' + userId);
 		recDiv.append('<div id="loader"><img src="./content/img/ajax-loader-1.gif" /></div>');
 
 		recordingsFactory.getRecordings(userId, start, take).success(function(data) {
 			$('#loader').remove();
 			$scope.recordings = data;
-			$scope.recordings.reverse();
 		});
 	}
 
 	function getNewRecordings() {
-		
-		setInterval(function(){
+		if (sayHello.newContentExists) {
 			var preLength = $scope.recordings.length;
 			recordingsFactory.getNewRecordings($routeParams.userId).success(function(data) {
 				if (data.length > 0) {
 
-					$.each(data, function(i, item) {
-						sayHello.rec_number_counter--;
-						item.rec_number = sayHello.rec_number_counter;
-						$scope.recordings.push(item);
-						
+					// get all prev rec ids from scope
+					var preIds = [];
+					$.each($scope.recordings, function(i, preRec) {
+						preIds.push(preRec.recording_id);
 					});
-					
+
+					// check if new rec ids exist in prev scope
+					var checkNew = false;
+					var newRecsToInsert = [];
+					$.each(data, function(i, item) {
+						if (!~$.inArray(item.recording_id, preIds)) {
+							checkNew = true;
+							newRecsToInsert.push(item);
+						}
+					});
+
+					// new recordings that are NOT already in view, exists.
+					// add them to view.
+					if (checkNew) {
+						$.each(newRecsToInsert, function(i, item) {
+							sayHello.rec_number_counter--;
+							item.rec_number = sayHello.rec_number_counter;
+							$scope.recordings.push(item);							
+						});
+					}
 				}
 			});
-		},9000);
+		}
 	}
 
 	$scope.removeNewMark = function(recording_id) {
@@ -160,12 +171,14 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 
 	function updateBadge(number) {
 		if (number > 0) { // number of notifications to display
+			sayHello.newContentExists = true;
 			// update badge
 			$('#topBarCountNewRecs').html(number).show();
 			document.title = 'sayHello. ('+number+')';
 			newMarkOnRecordingList();
 		
 		} else { // null
+			sayHello.newContentExists = false;
 			// remove badge
 			$('#topBarCountNewRecs').empty().hide();
 			document.title = 'sayHello.';
@@ -204,6 +217,7 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 		if ($('#filterInput').val() != '') { // prevent this to run when filtering. (will show message even if no new.)
 			return false;
 		}
+
 		if (newIds.length > 0) { // check if new userId is not in current list
 			var elemIds = [];
 			$.each(newIds, function(i, id) {
@@ -212,6 +226,7 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 				}
 			});
 
+			// check if ids of users that sent new recs are not the current dom 
 			var checkNew = false;
 			$.each(newIds, function(i, item) {
 				if (!~$.inArray(item, elemIds)) {
@@ -229,5 +244,7 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 
 sayHello.controller(controllers);
 sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
-sayHello.rec_number_counter = 1;
+sayHello.rec_number_counter = 0;
+sayHello.newContentExists = false;
+sayHello.getNewRecordingsInterval = null;
 
