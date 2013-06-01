@@ -324,10 +324,11 @@ h1#logo, h1#logo a {
 .recordings li {
 	background: rgba(0, 0, 0, 0.2);
 	padding: 4px;
+	margin-top: 18px;
 	margin-bottom: 15px;
 	border: 1px solid #919191;
 	width: 200px;
-	min-height: 60px;
+	height: 63px;
 	float: left;
 	background: #b4d4ff; 
 
@@ -344,17 +345,18 @@ h1#logo, h1#logo a {
 
 	background: #ff9b3b !important;
 }
+.right .from {
+	float: right;
+}
 .right .from img {
 	float: right;
 }
 .right .recordingDateTime {
-	float: right;
-	margin-top: 12px;
-	margin-right: 5px;
+	text-align: right;
 }
 .right .username {
 	float: right;
-	margin-top: 11px;
+	margin-top: 16px;
 	margin-right: 3px;
 }
 .right .deleteRec {
@@ -364,21 +366,32 @@ h1#logo, h1#logo a {
 	float: left;
 	margin-left: 5px;
 }
+.recordingInsideWrapper {
+	position: relative;
+	top: -8px;
+}
 /* --- */
+.recordings .username {
+	font-size: 9px !important;
+}
 .recordings .from img {
 	width: 23px;
 	height: 23px;
 }
 .recordingDateTime {
 	font-size: 8px;
-	margin: 0 3px 4px 0;
+	position: relative;
+	top: -18px;
+	text-align: left;
 }
 
 .newRecordingMark {
 	float: right;
-	font-size: 10px;
+	font-size: 9px;
 	font-weight: bold;
 	margin-right: 6px;
+	height: 10px;
+	width: 50px;
 }
 .newRecording {
 	background: #cb8525;

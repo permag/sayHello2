@@ -45,7 +45,7 @@ controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
 		if (audioElem.hasClass('removeNewMark')) {
 			// remove new and remove ng-click
 			audioElem.removeClass('removeNewMark').removeAttr('ng-click');
-			recElem.find('p.newRecordingMark').fadeOut()
+			recElem.find('p.newRecordingMark').empty();
 			$.ajax({
 				url: './ajax/removeNewMark.php',
 				data: {recording_id: recording_id},

@@ -2,15 +2,16 @@
 <div class="recordings">
 	<ul>
 		<li ng-repeat="recs in recordings | filter:filter.username" id="rec_id_{{recs.recording_id}}" class="{{recs.user_id|activeUserToRight}}">
-
+			<div class="recordingDateTime" title="{{recs.date_time}}">{{recs.date_time|fromNow}}</div>
+			<div class="recordingInsideWrapper">
 			<div class="from" ng-controller="ReplyCtrl">
 				<img ng-src="{{recs.image}}" ng-click="replyTo(rec.username)" alt="{{recs.username}}" />
-				<a class="username" ng-click="replyTo(recs.username)">{{recs.username}}</a>
-				<span class="recordingDateTime" title="{{recs.date_time}}">{{recs.date_time|fromNow}}</span>
+				<a class="username" ng-click="replyTo(recs.username)">{{recs.username}}4242342</a>
 			</div>
 			<div class="deleteRec" title="Delete recording">x</div>
 			<p class="newRecordingMark">{{recs.new|markAsNew}}</p>
 			<audio ng-src="./recs/{{recs.filename}}" controls class="{{recs.new|removeNewMark}}" ng-click="removeNewMark(recs.recording_id)"></audio>
+			<div>
 		</li>
 	</ul>
 </div><!-- recordings end -->
