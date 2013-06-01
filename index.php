@@ -31,8 +31,10 @@ $db = null;
 		<div id="topBar">
 			<div id="topBarWrap">
 				<div id="topBarLogo">sayHello.</div>
-				<div id="topBarRefresh"><a href="#">
-					<img src="./content/img/reload.png"></a>
+				<div id="topBarRefresh">
+					<a ng-click="reloadView()">
+						<img src="./content/img/reload.png">
+					</a>
 					<a href="#"><div id="topBarCountNewRecs"></div></a>
 				</div>
 				<div id="topBarUserContainer">

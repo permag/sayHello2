@@ -2,7 +2,7 @@
 var controllers = {};
 
 /**
- * App, recoredingList
+ * App, recordingList
  */
 controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 	$scope.recordingList = [];
@@ -16,27 +16,64 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 			}
 		});
 	}
+
+	$scope.reloadView = function() {
+		if ($location.path().substring(0,5) == '/show') {
+			var path = $location.path();
+			$location.path('/show/11');
+			$location.path(path);
+		}
+	};
+
 };
 
 
 /**
  * Show recordings
  */
-controllers.ShowCtrl = function($scope, $routeParams, recordingsFactory) {
+controllers.ShowCtrl = function($scope, $routeParams, $timeout, recordingsFactory) {
 	if ($routeParams.userId != null) {
-		init($routeParams.userId, 0, 150);
+		//setInterval(function() {
+			init($routeParams.userId, 0, 150);
+			console.log('updated')
+		//},5000);
 	}
 	$scope.recordings = [];
 
+	// $timeout(function(){
+	// 	$scope.recordings.push({"user_id":"19","username":"uhno1","recording_id":"163","filename":"19_885607420130601145637.wav","date_time":"Sat Jun 1 15:56:37 (CEST) 2013","to_user_id":"19","owner_user_id":"19","image":"https:\/\/graph.facebook.com\/100003959182383\/picture?type=square","new":"new"});
+	// }, 5000);
+
 	// userId for which user has a conversation with, start offset, take limit
 	function init(userId, start, take) {
+		getNewRecordings();
 		var recDiv = $('#rec_' + userId);
 		recDiv.append('<div id="loader"><img src="./content/img/ajax-loader-1.gif" /></div>');
 
 		recordingsFactory.getRecordings(userId, start, take).success(function(data) {
 			$('#loader').remove();
 			$scope.recordings = data;
+			$scope.recordings.reverse();
 		});
+	}
+
+	function getNewRecordings() {
+		
+		setInterval(function(){
+			var preLength = $scope.recordings.length;
+			recordingsFactory.getNewRecordings($routeParams.userId).success(function(data) {
+				if (data.length > 0) {
+
+					$.each(data, function(i, item) {
+						sayHello.rec_number_counter--;
+						item.rec_number = sayHello.rec_number_counter;
+						$scope.recordings.push(item);
+						
+					});
+					
+				}
+			});
+		},9000);
 	}
 
 	$scope.removeNewMark = function(recording_id) {
@@ -192,4 +229,5 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 
 sayHello.controller(controllers);
 sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
+sayHello.rec_number_counter = 1;
 

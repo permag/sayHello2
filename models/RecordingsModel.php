@@ -106,6 +106,56 @@ class RecordingsModel {
 
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
+		$count = 0;
+		while ($r = $stmt->fetch()) {
+			$tmp = array();
+			$tmp['rec_number'] = ++$count;
+			$tmp['user_id'] = $r['user_id'];
+			//$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
+			$tmp['username'] = $r['username'];
+			$tmp['recording_id'] = $r['recording_id'];
+			$tmp['filename'] = $r['filename'];
+			$tmp['date_time'] = date('D M j G:i:s (T) Y', strtotime($r['date_time']));
+			$tmp['to_user_id'] = $r['to_user_id'];
+			$tmp['owner_user_id'] = $r['owner_user_id'];
+			if ($r['third_party_type'] == 1) {
+				$tmp['image'] = 'https://graph.facebook.com/'.$r['third_party_id'].'/picture?type=square';
+			}
+
+			if ($r['new'] == 1 && $r['to_user_id'] == $activeUserId) { // new to you, from friend
+				$tmp['new'] = 'new';
+			} else if ($r['new'] == 1 && $r['owner_user_id'] == $activeUserId) { // from you, unheard to friend
+				$tmp['new'] = 'unheard';
+			} else {
+				$tmp['new'] = 0;
+			}
+
+			array_push($recordings, $tmp);
+		}
+		return $recordings;
+	}
+
+
+	public function getNewRecordings($activeUserId, $userIdToShowRecordingsFor) {
+		$recordings = array();
+
+		$stmt = $this->_db->select("SELECT user.user_id, user.username, user.third_party_id, user.third_party_type,
+										   recording.recording_id, recording.filename, recording.date_time, 
+										   recording.to_user_id, recording.owner_user_id, recording.new
+									FROM user
+									INNER JOIN recording
+									ON user.user_id = recording.owner_user_id 
+									WHERE (recording.to_user_id = :userIdToShowRecordingsFor
+									AND recording.owner_user_id = :activeUserId
+									OR (recording.to_user_id = :activeUserId
+									AND recording.owner_user_id = :userIdToShowRecordingsFor))
+									AND recording.new = 1 
+									ORDER BY recording.date_time DESC",
+									array(':userIdToShowRecordingsFor' => $userIdToShowRecordingsFor,
+										   ':activeUserId' => $activeUserId));
+
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
 		while ($r = $stmt->fetch()) {
 			$tmp = array();
 			$tmp['user_id'] = $r['user_id'];
@@ -132,6 +182,7 @@ class RecordingsModel {
 		}
 		return $recordings;
 	}
+
 
 	/**
 	 * @param  $activeUserId 

@@ -34,6 +34,14 @@ sayHello.factory('recordingsFactory', function($http) {
 			params: {'user_id': userId, 'start': start, 'take': take}
 		});
 	};
+
+	factory.getNewRecordings = function(userId) {
+		return $http({
+			url: './ajax/getNewRecordings.php',
+			method: 'GET',
+			params: {'user_id': userId}
+		});
+	};
 	return factory;
 });
 
