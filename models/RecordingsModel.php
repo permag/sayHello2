@@ -233,8 +233,7 @@ class RecordingsModel {
 		$stmt = $this->_db->update("UPDATE recording
 									SET new = 0
 									WHERE recording_id = :recordingId
-									AND to_user_id = :activeUserId
-									OR owner_user_id = :activeUserId",
+									AND to_user_id = :activeUserId",
 									array(':recordingId' => $recordingId,
 										  ':activeUserId' => $activeUserId));
 		return $stmt; // rowcount

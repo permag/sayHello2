@@ -24,7 +24,7 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
  */
 controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recordingsFactory) {
 	if ($routeParams.userId != null) {
-		init($routeParams.userId, 0, 150);
+		init($routeParams.userId, 0, 100);
 	}
 	$scope.recordings = [];
 
@@ -43,6 +43,7 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 		var recDiv = $('#rec_' + userId);
 		recDiv.append('<div id="loader"><img src="./content/img/ajax-loader-1.gif" /></div>');
 
+		// get all recordings
 		recordingsFactory.getRecordings(userId, start, take).success(function(data) {
 			$('#loader').remove();
 			$scope.recordings = data;
@@ -53,12 +54,12 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 		if ($location.path().substring(0,5) != '/show') { // only on show page
 			return false;
 		}
+
+		updateNewAndUnheard(); // update unheard/new status in scope
+
 		if (sayHello.newContentExists) {
-			var preLength = $scope.recordings.length;
 			recordingsFactory.getNewRecordings($routeParams.userId).success(function(data) {
 				if (data.length > 0) {
-
-					updateNewAndUnheard(data);
 
 					// get all prev rec ids from scope
 					var preIds = [];
@@ -88,18 +89,27 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 				}
 			});
 		}
-		$timeout(function() { getNewRecordings(); }, 5000);
+		$timeout(function() { getNewRecordings(); }, 7000);
 	}
 
-	function updateNewAndUnheard(data) {
-		// $.each(data, function(i, newUnheardRec) {
+	function updateNewAndUnheard() {
+		recordingsFactory.getRecordings($routeParams.userId, 0, 100).success(function(data) {
+			// if scope recording does NOT exists in DB data recordings
+			// update scope recoring to new = null
 			
-		// });
+			// each rec from scope
+			$.each($scope.recordings, function(i, scopeRec) {
 
-		// $.each($scope.recordings, function(i, scopeRec) {
-		// 	$scope.recordings[i].new = null;
-		// });
+				// each rec from DB
+				$.each(data, function(ii, DBrec) {
+					//
+					if (scopeRec.recording_id == DBrec.recording_id) {
+						$scope.recordings[i].new = DBrec.new;
+					}
+				});
+			});
 
+		});
 	}
 
 	$scope.removeNewMark = function(recording_id) {
