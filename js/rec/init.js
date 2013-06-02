@@ -26,13 +26,6 @@ $(function(){
 			e.preventDefault();
 		}
 	});
-	// confirm delete click event
-	$('.deleteRec').click(function(e){
-		if (confirmDelete("Are you sure you wish to delete this recording? \n\nIt will be removed from both users conversations.")){
-			return;
-		}
-		e.preventDefault();
-	});
 
 	// ajax autocomplete to get usernames
 	$("#shareToUsername").autocomplete({
@@ -58,16 +51,6 @@ $(function(){
             .appendTo(ul);
     };
 
-	
-	// confirm delete
-	function confirmDelete(message) {
-		var agree = confirm(message);
-		if (agree) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 
 	function recorderFollowScroll() {
 		var top = $('#rightSection').offset().top - parseFloat($('#rightSection').css('marginTop').replace(/auto/, 0));

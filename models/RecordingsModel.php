@@ -2,6 +2,8 @@
 
 class RecordingsModel {
 
+	const RECORDINGS_DIR = '../recs';
+
 	private $_db = null;
 
 	public function __construct(Database $db) {
@@ -229,6 +231,7 @@ class RecordingsModel {
 		return $recordingList;
 	}
 
+
 	public function removeNewMark($activeUserId, $recordingId) {
 		$stmt = $this->_db->update("UPDATE recording
 									SET new = 0
@@ -238,4 +241,52 @@ class RecordingsModel {
 										  ':activeUserId' => $activeUserId));
 		return $stmt; // rowcount
 	}
+
+
+	public function getRecordingFilename($recordingId) {
+		$stmt = $this->_db->select("SELECT filename
+								   FROM recording
+								   WHERE recording_id = :recordingId",
+								   array(':recordingId' => $recordingId));
+
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		$filename = '';
+		while ($r = $stmt->fetch()) {
+			$filename = $r['filename'];
+		}
+		if ($filename != null || $filename != '') {
+			return $filename;
+		} else {
+			return false;
+		}
+
+	}
+
+	public function deleteRecordingDB($activeUserId, $recordingId) {
+		$stmt = $this->_db->delete("DELETE 
+									FROM recording
+									WHERE recording_id = :recordingId
+									AND (owner_user_id = :activeUserId
+										OR to_user_id = :activeUserId)",
+									array(':recordingId' => $recordingId,
+										  ':activeUserId' => $activeUserId));
+		if ($stmt > 0) { // rowcount
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	public function deleteRecordingFile($filename) {
+		$file =  self::RECORDINGS_DIR .'/'. $filename;
+
+		if (unlink($file)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

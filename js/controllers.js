@@ -28,17 +28,13 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 	}
 	$scope.recordings = [];
 
-	// $timeout(function(){
-	// 	$scope.recordings.push({"user_id":"19","username":"uhno1","recording_id":"163","filename":"19_885607420130601145637.wav","date_time":"Sat Jun 1 15:56:37 (CEST) 2013","to_user_id":"19","owner_user_id":"19","image":"https:\/\/graph.facebook.com\/100003959182383\/picture?type=square","new":"new"});
-	// }, 5000);
-
 	// userId for which user has a conversation with, start offset, take limit
 	function init(userId, start, take) {
 		sayHello.rec_number_counter = 0;
 
-		$timeout(function() { 
-			getNewRecordings(); 
-		}, 5000);
+		$timeout(function(){
+			getNewRecordings();
+		},700);
 
 		var recDiv = $('#rec_' + userId);
 		recDiv.append('<div id="loader"><img src="./content/img/ajax-loader-1.gif" /></div>');
@@ -51,65 +47,68 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 	}
 
 	function getNewRecordings() {
+
 		if ($location.path().substring(0,5) != '/show') { // only on show page
 			return false;
 		}
 
-		updateNewAndUnheard(); // update unheard/new status in scope
-
-		if (sayHello.newContentExists) {
-			recordingsFactory.getNewRecordings($routeParams.userId).success(function(data) {
-				if (data.length > 0) {
-
-					// get all prev rec ids from scope
-					var preIds = [];
-					$.each($scope.recordings, function(i, preRec) {
-						preIds.push(preRec.recording_id);
-					});
-
-					// check if new rec ids exist in prev scope
-					var checkNew = false;
-					var newRecsToInsert = [];
-					$.each(data, function(i, item) {
-						if (!~$.inArray(item.recording_id, preIds)) {
-							checkNew = true;
-							newRecsToInsert.push(item);
-						}
-					});
-
-					// new recordings that are NOT already in view, exists.
-					// add them to view.
-					if (checkNew) {
-						$.each(newRecsToInsert, function(i, item) {
-							sayHello.rec_number_counter--;
-							item.rec_number = sayHello.rec_number_counter;
-							$scope.recordings.push(item);							
-						});
-					}
-				}
-			});
-		}
-		$timeout(function() { getNewRecordings(); }, 7000);
-	}
-
-	function updateNewAndUnheard() {
-		recordingsFactory.getRecordings($routeParams.userId, 0, 100).success(function(data) {
-			// if scope recording does NOT exists in DB data recordings
-			// update scope recoring to new = null
+		recordingsFactory.getNewRecordings($routeParams.userId).success(function(data) {
 			
-			// each rec from scope
-			$.each($scope.recordings, function(i, scopeRec) {
+			updateNewAndUnheard(data); // update unheard/new status in scope
 
-				// each rec from DB
-				$.each(data, function(ii, DBrec) {
-					//
-					if (scopeRec.recording_id == DBrec.recording_id) {
-						$scope.recordings[i].new = DBrec.new;
+			if (data.length > 0) {
+
+				// get all prev rec ids from scope
+				var preIds = [];
+				$.each($scope.recordings, function(i, preRec) {
+					preIds.push(preRec.recording_id);
+				});
+
+				// check if new rec ids exist in prev scope
+				var checkNew = false;
+				var newRecsToInsert = [];
+				$.each(data, function(i, item) {
+					if (!~$.inArray(item.recording_id, preIds)) {
+						checkNew = true;
+						newRecsToInsert.push(item);
 					}
 				});
-			});
 
+				// new recordings that are NOT already in view, exists.
+				// add them to view.
+				if (checkNew) {
+					$.each(newRecsToInsert, function(i, item) {
+						sayHello.rec_number_counter--;
+						item.rec_number = sayHello.rec_number_counter;
+						$scope.recordings.push(item);							
+					});
+				}
+			}
 		});
+		// clear interval to prevent multiple intervals on multiple calls, and start new interval
+		clearInterval(sayHello.getNewRecordingsInterval);
+		sayHello.getNewRecordingsInterval = setInterval(function() {
+			getNewRecordings();
+		}, 7000);
+	}
+
+	function updateNewAndUnheard(data) {
+		// if scope recording does NOT exists in DB data recordings
+		// update scope recoring to new = null
+		
+		// each rec from scope
+		$.each($scope.recordings, function(i, scopeRec) {
+
+			$scope.recordings[i].new = 0;
+			// each rec from DB
+			$.each(data, function(ii, DBrec) {
+				//
+				if (scopeRec.recording_id == DBrec.recording_id) {
+					$scope.recordings[i].new = DBrec.new;
+				}
+			});
+		});
+
 	}
 
 	$scope.removeNewMark = function(recording_id) {
@@ -136,6 +135,29 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 		init(userId, 0, 7);
 		$scope.templates = [{name: '_recordings.html', url: './views/partials/_recordings.html'}];
 		$scope.templateRecordings = $scope.templates[0];
+	};
+
+	// delte recoring on click
+	$scope.deleteRecording = function($index) {
+		var recToDelete = $scope.recordings[$index];
+
+		// confirm delete click event
+		if (confirm("Are you sure you wish to delete this recording? \n\nIt will be removed from both users conversation.")){
+
+			// delete recoring
+			recordingsFactory.deleteRecording(recToDelete.recording_id).success(function(data) {
+				if (data > 0) {
+					$('#rec_id_' + recToDelete.recording_id).fadeOut(333);
+					$timeout(function() {
+						$scope.recordings.splice($index, 1);
+					}, 444);
+				}
+			});
+
+			return;
+		} else {
+			return false;
+		}
 	};
 };
 
@@ -271,4 +293,5 @@ sayHello.controller(controllers);
 sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
 sayHello.rec_number_counter = 0;
 sayHello.newContentExists = false;
+sayHello.getNewRecordingsInterval = null;
 

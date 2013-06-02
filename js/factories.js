@@ -42,6 +42,15 @@ sayHello.factory('recordingsFactory', function($http) {
 			params: {'user_id': userId}
 		});
 	};
+
+	factory.deleteRecording = function(recording_id) {
+		return $http({
+			url: './ajax/deleteRecording.php',
+			method: 'GET',
+			params: {'recording_id': recording_id}
+		});
+	};
+
 	return factory;
 });
 
