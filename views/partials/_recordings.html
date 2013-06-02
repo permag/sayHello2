@@ -1,7 +1,7 @@
 <!-- recordings -->
 <div class="recordings">
 	<ul>
-		<li ng-repeat="recs in recordings | orderBy:'rec_number':false | filter:filter.username" id="rec_id_{{recs.recording_id}}" class="{{recs.user_id|activeUserToRight}}" ng-animate="'custom'">
+		<li ng-repeat="recs in recordings | orderBy:'rec_number':false | filter:filter.username" id="rec_id_{{recs.recording_id}}" class="{{recs.user_id|activeUserToRight}}">
 			<div class="recordingDateTime" title="{{recs.date_time}}">{{recs.date_time|fromNow}}</div>
 			<div class="recordingInsideWrapper">
 			<div class="from" ng-controller="ReplyCtrl">

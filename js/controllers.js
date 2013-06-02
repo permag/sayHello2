@@ -22,7 +22,7 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 /**
  * Show recordings
  */
-controllers.ShowCtrl = function($scope, $routeParams, $timeout, recordingsFactory) {
+controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recordingsFactory) {
 	if ($routeParams.userId != null) {
 		init($routeParams.userId, 0, 150);
 	}
@@ -36,11 +36,9 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, recordingsFactor
 	function init(userId, start, take) {
 		sayHello.rec_number_counter = 0;
 
-		clearInterval(sayHello.getNewRecordingsInterval);
-
-		sayHello.getNewRecordingsInterval = setInterval(function() {
-			getNewRecordings();
-		},10000);
+		$timeout(function() { 
+			getNewRecordings(); 
+		}, 5000);
 
 		var recDiv = $('#rec_' + userId);
 		recDiv.append('<div id="loader"><img src="./content/img/ajax-loader-1.gif" /></div>');
@@ -52,10 +50,15 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, recordingsFactor
 	}
 
 	function getNewRecordings() {
+		if ($location.path().substring(0,5) != '/show') { // only on show page
+			return false;
+		}
 		if (sayHello.newContentExists) {
 			var preLength = $scope.recordings.length;
 			recordingsFactory.getNewRecordings($routeParams.userId).success(function(data) {
 				if (data.length > 0) {
+
+					updateNewAndUnheard(data);
 
 					// get all prev rec ids from scope
 					var preIds = [];
@@ -85,6 +88,18 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, recordingsFactor
 				}
 			});
 		}
+		$timeout(function() { getNewRecordings(); }, 5000);
+	}
+
+	function updateNewAndUnheard(data) {
+		// $.each(data, function(i, newUnheardRec) {
+			
+		// });
+
+		// $.each($scope.recordings, function(i, scopeRec) {
+		// 	$scope.recordings[i].new = null;
+		// });
+
 	}
 
 	$scope.removeNewMark = function(recording_id) {
@@ -246,5 +261,4 @@ sayHello.controller(controllers);
 sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
 sayHello.rec_number_counter = 0;
 sayHello.newContentExists = false;
-sayHello.getNewRecordingsInterval = null;
 

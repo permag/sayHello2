@@ -150,14 +150,16 @@ class RecordingsModel {
 									OR (recording.to_user_id = :activeUserId
 									AND recording.owner_user_id = :userIdToShowRecordingsFor))
 									AND recording.new = 1 
-									ORDER BY recording.date_time DESC",
+									ORDER BY recording.date_time ASC",
 									array(':userIdToShowRecordingsFor' => $userIdToShowRecordingsFor,
 										   ':activeUserId' => $activeUserId));
 
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
+		$count = 0;
 		while ($r = $stmt->fetch()) {
 			$tmp = array();
+			// $tmp['rec_number'] = ++$count;
 			$tmp['user_id'] = $r['user_id'];
 			//$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
 			$tmp['username'] = $r['username'];
@@ -231,7 +233,8 @@ class RecordingsModel {
 		$stmt = $this->_db->update("UPDATE recording
 									SET new = 0
 									WHERE recording_id = :recordingId
-									AND to_user_id = :activeUserId",
+									AND to_user_id = :activeUserId
+									OR owner_user_id = :activeUserId",
 									array(':recordingId' => $recordingId,
 										  ':activeUserId' => $activeUserId));
 		return $stmt; // rowcount
