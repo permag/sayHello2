@@ -11,9 +11,9 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 	function init() {
 		recordingListFactory.getRecordingList().success(function(data) {
 			$scope.recordingList = data;
-			if ($scope.recordingList.length == 0) {
-				$('#recordingList').html('<div id="noConversations">No conversations.</div>')
-			}
+			// if ($scope.recordingList.length == 0 && $('#noConversations').length < 1) {
+			// 	$('#recordingList').prepend('<div id="noConversations">No conversations.</div>')
+			// }
 		});
 	}
 };
@@ -294,4 +294,5 @@ sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#
 sayHello.rec_number_counter = 0;
 sayHello.newContentExists = false;
 sayHello.getNewRecordingsInterval = null;
+sayHello.getNewRecordingsAfterSendTimer = null;
 

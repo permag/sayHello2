@@ -69,7 +69,7 @@ $db = null;
 
 			</div>
 
-
+			<!-- recorder -->
 			<div id="rightSectionWrapper">
 				<div id="rightSection">
 					<div id="recorderContainer">
@@ -97,6 +97,7 @@ $db = null;
 					</div>
 				</div>
 			</div>
+			<!-- recorder end -->
 
 		</div>
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->
