@@ -43,6 +43,10 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 		recordingsFactory.getRecordings(userId, start, take).success(function(data) {
 			$('#loader').remove();
 			$scope.recordings = data;
+
+			$timeout(function() {
+				///// $("#listScroll").animate({ scrollTop: $('#listScroll')[0].scrollHeight}, 0);
+			}, 0);
 		});
 	}
 
@@ -80,7 +84,9 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 					$.each(newRecsToInsert, function(i, item) {
 						sayHello.rec_number_counter--;
 						item.rec_number = sayHello.rec_number_counter;
-						$scope.recordings.push(item);							
+						$scope.recordings.push(item);
+
+						///// $("#listScroll").animate({ scrollTop: $('#listScroll')[0].scrollHeight}, 3000);
 					});
 				}
 			}
@@ -138,9 +144,16 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 	};
 
 	// delte recoring on click
-	$scope.deleteRecording = function($index) {
-		var recToDelete = $scope.recordings[$index];
+	$scope.deleteRecording = function(recording_id) {
+		var index = 0;
 
+		$.each($scope.recordings, function(i, rec) {
+			if ($scope.recordings[i].recording_id == recording_id) {
+				index = i;
+			}
+		});
+
+		var recToDelete = $scope.recordings[index];
 		// confirm delete click event
 		if (confirm("Are you sure you wish to delete this recording? \n\nIt will be removed from both users conversation.")){
 
@@ -149,7 +162,7 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 				if (data > 0) {
 					$('#rec_id_' + recToDelete.recording_id).fadeOut(333);
 					$timeout(function() {
-						$scope.recordings.splice($index, 1);
+						$scope.recordings.splice(index, 1);
 					}, 444);
 				}
 			});

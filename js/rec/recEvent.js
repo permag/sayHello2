@@ -45,7 +45,7 @@ $(function(){
 				success: function(data){
 					if (typeof parseInt(data) == 'number' && data != null) {
 						$.jRecorder.sendData();
-						$('#shareToUsername').val('');
+						// $('#shareToUsername').val('');
 
 						// check when upload is finished.
 						var checkFinished = setInterval(function(){

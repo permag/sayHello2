@@ -5,10 +5,10 @@
 			<div class="recordingDateTime" title="{{recs.date_time}}">{{recs.date_time|fromNow}}</div>
 			<div class="recordingInsideWrapper">
 			<div class="from" ng-controller="ReplyCtrl">
-				<img ng-src="{{recs.image}}" ng-click="replyTo(rec.username)" alt="{{recs.username}}" />
+				<img ng-src="{{recs.image}}" ng-click="replyTo(recs.username)" alt="{{recs.username}}" />
 				<a class="username" ng-click="replyTo(recs.username)">{{recs.username}}</a>
 			</div>
-			<div class="deleteRec" title="Delete recording" ng-click="deleteRecording($index)">x</div>
+			<div class="deleteRec" title="Delete recording" ng-click="deleteRecording(recs.recording_id)">x</div>
 			<p class="newRecordingMark">{{recs.new|markAsNew}}</p>
 			<audio ng-src="./recs/{{recs.filename}}" controls class="{{recs.new|removeNewMark}}" ng-click="removeNewMark(recs.recording_id)"></audio>
 			<div>

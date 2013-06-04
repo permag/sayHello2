@@ -295,6 +295,12 @@ h1#logo, h1#logo a {
 	-moz-border-radius: 9px;
 	border-radius: 9px;
 }
+/*#listScroll {
+	overflow: auto;
+	max-height: 400px;
+	min-height: 200px;
+	padding: 9px 5px 6px 5px;
+}*/
 #noConversations { /*no conversation yet*/
 	margin: 10px;
 }
@@ -650,37 +656,123 @@ audio {
 
 
 
-.custom-enter,
-.custom-leave,
-.custom-move {
-  -webkit-transition: 1s linear all;
-  -moz-transition: 1s linear all;
-  -o-transition: 1s linear all;
-  transition: 1s linear all;
-  position:relative;
-}
 
-.custom-enter {
-  left:-10px;
-  opacity:0;
-}
-.custom-enter.custom-enter-active {
-  left:0;
-  opacity:1;
-}
 
-.custom-leave {
-  left:0;
-  opacity:1;
-}
-.custom-leave.custom-leave-active {
-  left:-10px;
-  opacity:0;
-}
 
-.custom-move {
-  opacity:0.5;
+
+
+
+
+
+::-webkit-scrollbar {
+    height: 16px;
+    overflow: visible;
+    width: 11px;
+    background: #fff;
 }
-.custom-move.custom-move-active {
-  opacity:1;
+::-webkit-scrollbar-button {
+    display: none;
+    height:0;
+    width: 0;
+}
+::-webkit-scrollbar-track {
+    -moz-background-clip: border;
+    -webkit-background-clip: border;
+    background-clip: border-box;
+    border-width: 0 0 0 4px;
+    border: solid transparent;
+}
+::-webkit-scrollbar-track:hover {
+    background-color:rgba(0,0,0,.05);
+    -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1);
+    -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1);
+    box-shadow: inset 1px 0 0 rgba(0,0,0,.1);
+}
+::-webkit-scrollbar-track:active {
+    background-color:rgba(0,0,0,.05);
+    -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.14), inset -1px 0 0 rgba(0,0,0,.07);
+    -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.14), inset -1px 0 0 rgba(0,0,0,.07);
+    box-shadow: inset 1px 0 0 rgba(0,0,0,.14), inset -1px 0 0 rgba(0,0,0,.07);
+}
+::-webkit-scrollbar-track:horizontal {
+    border-width: 4px 0 0;
+}
+::-webkit-scrollbar-track:horizontal:hover {
+    -moz-box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
+    -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
+}
+::-webkit-scrollbar-track:horizontal:active {
+    -moz-box-shadow: inset 0 1px 0 rgba(0,0,0,.14), inset 0 -1px 0 rgba(0,0,0,.07);
+    -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.14), inset 0 -1px 0 rgba(0,0,0,.07);
+    box-shadow: inset 0 1px 0 rgba(0,0,0,.14), inset 0 -1px 0 rgba(0,0,0,.07);
+}
+::-webkit-scrollbar-thumb {
+    -moz-background-clip: border;
+    -webkit-background-clip: border;
+    background-clip: border-box;
+    background-color: rgba(0,0,0,.2);
+    /*border-width: 1px 1px 1px 6px;
+    border: solid transparent;*/
+    -moz-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    min-height: 28px;
+    padding: 100px 0 0;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color:rgba(0,0,0,.4);
+    -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.25);
+    -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.25);
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,.25);
+}
+::-webkit-scrollbar-thumb:active {
+    background-color:rgba(0,0,0,0.5);
+    -moz-box-shadow: inset 1px 1px 3px rgba(0,0,0,0.35);
+    -webkit-box-shadow: inset 1px 1px 3px rgba(0,0,0,0.35);
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.35);
+}
+::-webkit-scrollbar-thumb:horizontal {
+    border-width: 6px 1px 1px;
+    -moz-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.07);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.07);
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.07);
+    padding: 0 0 0 100px;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+body::-webkit-scrollbar-track-piece {
+    -moz-background-clip: border;
+    -webkit-background-clip: border;
+    background-clip: border-box;
+    background-color: #f5f5f5;
+    /*border-width: 0 0 0 3px;
+    border: solid #fff;*/
+    -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.14), inset -1px 0 0 rgba(0,0,0,.07);
+    -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.14), inset -1px 0 0 rgba(0,0,0,.07);
+    box-shadow: inset 1px 0 0 rgba(0,0,0,.14), inset -1px 0 0 rgba(0,0,0,.07);
+}
+body::-webkit-scrollbar-track-piece:horizontal {
+    border-width:3px 0 0;
+    -moz-box-shadow: inset 0 1px 0 rgba(0,0,0,.14), inset 0 -1px 0 rgba(0,0,0,.07);
+    -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.14), inset 0 -1px 0 rgba(0,0,0,.07);
+    box-shadow: inset 0 1px 0 rgba(0,0,0,.14), inset 0 -1px 0 rgba(0,0,0,.07);
+}
+body::-webkit-scrollbar-thumb {
+    border-width: 1px 1px 1px 5px;
+}
+body::-webkit-scrollbar-thumb:horizontal {
+    border-width: 5px 1px 1px;
+}
+body::-webkit-scrollbar-corner {
+    -moz-background-clip: border;
+    -webkit-background-clip: border;
+    background-clip: border-box;
+    background-color: #f5f5f5;
+    border-width: 3px 0 0 3px;
+    border: solid #fff;
+    -moz-box-shadow: inset 1px 1px 0 rgba(0,0,0,.14);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.14);
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,.14);
 }
