@@ -6,9 +6,6 @@
 
 		const RECORDINGS_DIR = 'recs';
 		const FILE_EXTENSION = '.wav';
-		
-		// session to retireive memberId from "send rec to username"
-		const MEMBERID_SHARE_SESSION = 'ajax_memberIdToShare'; ///////
 
 		// time
 		private static $m_timeZone = 'Europe/Berlin';
@@ -78,25 +75,19 @@
 			}
 		}
 
-		/**
-		 * Get memberId of username in sharebox
-		 * the session is set in ajax/ShareGetUsername
-		 * @return int memberId or null
-		 */
-		public function getMemberIdFromSession() {
-			$memberId = $_SESSION[self::MEMBERID_SHARE_SESSION];
-			if (isset($memberId)) {
-				unset($_SESSION[self::MEMBERID_SHARE_SESSION]);
-				return $memberId;
-			} else {
-				return null;
-			}
-		}
 
+		/**
+		 * Status of recording when sending / sent
+		 * @param bool $trueFalse if sent true
+		 */
 		public function setRecordingUploadStatus($trueFalse) {
 			$_SESSION['recording_is_uploaded'] = $trueFalse;
 		}
 
+		/**
+		 * Check if recording is uploaded, if ok, unset session
+		 * @return bool
+		 */
 		public function recordingIsUploaded() {
 			if (isset($_SESSION['recording_is_uploaded']) && $_SESSION['recording_is_uploaded'] == true) {
 				unset($_SESSION['recording_is_uploaded']);
@@ -119,11 +110,6 @@
 
 			if ($this->insertRecording(1, 2, '1_20120101111111.wav') != $this->m_db->lastInsertId()) {
 				echo 'FEL! insertRecording returnerar fel ID';
-				return false;
-			}
-
-			if ($this->getMemberIdFromSession() != $_SESSION[self::MEMBERID_SHARE_SESSION]) {
-				echo 'FEL! getMemberIdFromSession returnerar fel ID';
 				return false;
 			}
 

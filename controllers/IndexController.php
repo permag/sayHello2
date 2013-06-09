@@ -9,6 +9,7 @@ class IndexController {
 		$this->_db = $db;
 	}
 
+	// control user-data on index.php
 	public function userControl() {
 		$userModel = new UserModel($this->_db);
 		$userId = $userModel->getActiveUserId();

@@ -11,9 +11,6 @@ controllers.AppCtrl = function($scope, $location, $http, recordingListFactory) {
 	function init() {
 		recordingListFactory.getRecordingList().success(function(data) {
 			$scope.recordingList = data;
-			// if ($scope.recordingList.length == 0 && $('#noConversations').length < 1) {
-			// 	$('#recordingList').prepend('<div id="noConversations">No conversations.</div>')
-			// }
 		});
 	}
 };
@@ -43,10 +40,6 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 		recordingsFactory.getRecordings(userId, start, take).success(function(data) {
 			$('#loader').remove();
 			$scope.recordings = data;
-
-			$timeout(function() {
-				///// $("#listScroll").animate({ scrollTop: $('#listScroll')[0].scrollHeight}, 0);
-			}, 0);
 		});
 	}
 
@@ -85,8 +78,6 @@ controllers.ShowCtrl = function($scope, $routeParams, $timeout, $location, recor
 						sayHello.rec_number_counter--;
 						item.rec_number = sayHello.rec_number_counter;
 						$scope.recordings.push(item);
-
-						///// $("#listScroll").animate({ scrollTop: $('#listScroll')[0].scrollHeight}, 3000);
 					});
 				}
 			}
@@ -303,7 +294,7 @@ controllers.NotificationCtrl = function($scope, $location, $timeout) {
 };
 
 sayHello.controller(controllers);
-sayHello.userColors = ['#d9d1d5', '#d4d8c2', '#d8cfbc', '#dac0bb', '#e0b6cc', '#ccb7d5', '#beadd7', '#aebed5', '#a5c4ce'];
+sayHello.userColors = ['#dadada', '#dadada', '#dadada', '#dadada', '#dadada', '#dadada', '#dadada', '#dadada', '#dadada']; // experiment
 sayHello.rec_number_counter = 0;
 sayHello.newContentExists = false;
 sayHello.getNewRecordingsInterval = null;

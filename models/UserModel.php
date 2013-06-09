@@ -85,6 +85,7 @@ class UserModel {
 		}
 	}
 
+	// Register user (user from third party service)
 	public function registerUserThirdParty($thirdPartyType, $thirdPartyId, $username) {
 
 		// first check username not registered on user (if logged in to registerusername page multi browsers. malicious evil.)
@@ -118,6 +119,7 @@ class UserModel {
 		}
 	}
 
+	// check if username is taken or not
 	public function isUsernameAvailable($username) {
 		$stmt = $this->_db->select("SELECT COUNT(*) FROM user WHERE username = :username",
 								    array(':username' => $username));
@@ -130,6 +132,7 @@ class UserModel {
 		}
 	}
 
+	// check if username is reserved
 	public function isUsernameReserved($username) {
 		$username = strtolower($username);
 		$reservedUsernames = array();
@@ -142,6 +145,7 @@ class UserModel {
 		}
 	}
 
+	// get username from user id
 	public function getUserIdFromUserName($username) {
 		$theUserId = null;
 		$ret = $this->_db->select("SELECT user_id FROM user WHERE username = :username", 
@@ -161,6 +165,7 @@ class UserModel {
 		}
 	}
 
+	// ajax search
 	public function getUsernamesFromSearch($searchTerm) {
 		// array for JSON result
 		$usernames = array();
@@ -183,16 +188,19 @@ class UserModel {
 		return $usernames;
 	}
 
+	// get active user id
 	public function getActiveUserId() {
 		return $_SESSION['active_user_id'];
 	}
 
+	// set active user id
 	public function setActiveUserIdSession($userId) {
 		if ($userId != null || $userId != '') {
 			$_SESSION['active_user_id'] = $userId;
 		}
 	}
 
+	// uset active user id
 	public function unsetActiveUserIdSession() {
 		unset($_SESSION['active_user_id']);
 	}

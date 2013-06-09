@@ -11,7 +11,7 @@ class RecordingsModel {
 	}
 
 	/**
-	 * List of persons you user has dialog with
+	 * List of persons user has dialog with
 	 */
 	public function getRecordingList($activeUserId) {
 		$recordingList = array();
@@ -137,7 +137,9 @@ class RecordingsModel {
 		return $recordings;
 	}
 
-
+	/**
+	 * Get new recordings - recordings with new mark
+	 */
 	public function getNewRecordings($activeUserId, $userIdToShowRecordingsFor) {
 		$recordings = array();
 
@@ -158,10 +160,8 @@ class RecordingsModel {
 
 		$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-		$count = 0;
 		while ($r = $stmt->fetch()) {
 			$tmp = array();
-			// $tmp['rec_number'] = ++$count;
 			$tmp['user_id'] = $r['user_id'];
 			//$tmp['username'] = ($r['user_id'] == $activeUserId) ? 'You' : $r['username'];
 			$tmp['username'] = $r['username'];
@@ -189,6 +189,7 @@ class RecordingsModel {
 
 
 	/**
+	 * Check if new recordings exists, if - return count
 	 * @param  $activeUserId 
 	 * @return nr of new recs
 	 */
@@ -206,6 +207,9 @@ class RecordingsModel {
 		}
 	}
 
+	/**
+	 * Get new conversation in recording list
+	 */
 	public function getNewRecordingList($activeUserId) {
 		$recordingList = array();
 
@@ -231,7 +235,9 @@ class RecordingsModel {
 		return $recordingList;
 	}
 
-
+	/**
+	 * Remove "new" mark of heard recording
+	 */
 	public function removeNewMark($activeUserId, $recordingId) {
 		$stmt = $this->_db->update("UPDATE recording
 									SET new = 0
@@ -242,7 +248,9 @@ class RecordingsModel {
 		return $stmt; // rowcount
 	}
 
-
+	/**
+	 * Get filename of recording, from recordingId
+	 */
 	public function getRecordingFilename($recordingId) {
 		$stmt = $this->_db->select("SELECT filename
 								   FROM recording
@@ -263,6 +271,9 @@ class RecordingsModel {
 
 	}
 
+	/**
+	 * Delete recording in Database
+	 */
 	public function deleteRecordingDB($activeUserId, $recordingId) {
 		$stmt = $this->_db->delete("DELETE 
 									FROM recording
@@ -279,6 +290,9 @@ class RecordingsModel {
 	}
 
 
+	/**
+	 * Delete recording file from disk
+	 */
 	public function deleteRecordingFile($filename) {
 		$file =  self::RECORDINGS_DIR .'/'. $filename;
 

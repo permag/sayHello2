@@ -6,7 +6,7 @@ require_once('database/Database.php');
 require_once('models/RecordModel.php');
 
 /**
- * Called from jRecorder API, JavaScript/Flash, called when clicked send recording
+ * Called when clicked send recording
  */
 class RecordCall {
 
